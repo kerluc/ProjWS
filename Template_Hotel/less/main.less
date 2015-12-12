@@ -1,0 +1,328 @@
+#theme_switcher {
+	top:10px;
+	left:10px;
+	position:fixed;
+}
+body {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  background: #fff;
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.5em;
+  background-position:fixed; 
+  overflow-x: hidden;
+}
+.span12, .container {width: 940px;}
+.navbar-inner .container {width: auto;}
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 940px; /* or 950px */
+}
+.no_margin_left {margin-left: 0 !important;}
+.center {text-align:center;margin: 0 auto;}
+.text-right {text-align:right;}
+
+.logo {height: 65px;}
+.span4.logo h1{line-height: 21px}
+.span4.logo .span1{width:auto}
+
+.links a {	margin-right: 5px;}
+h1 span, h3 span {
+  font-weight: normal;
+}
+
+.slideshow{
+	width:@gridRowWidth;
+	margin:40px auto 0px 20px;
+}
+
+.logo {
+  h1{
+    font-size: 24px;
+    line-height: 1.2em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333333;
+    font-weight: bold;
+  }
+  p{
+    text-align: center;
+    margin-top: -11px;
+    margin-bottom: 0;
+    color: @red;
+    font-size: 22px;
+  }
+}
+
+footer{
+  border-top: 3px solid @red;
+  margin: 0 auto;
+  width: 100%;
+  background: none repeat scroll 0 0 #0D0D0D;
+  h4 {
+    /*border-bottom: 1px solid #747474;*/
+    color: @btnInfoBackground;
+    font-size: 17px;
+    line-height: 20px;
+    margin-bottom: 15px;
+    padding-left: 0px;
+    text-align: left;
+  }
+  p{
+    color: #A4A1A1;
+    color: lighten(@grayLight, 25%);
+    font-size: 12px;
+  }
+}
+
+span.line {
+  /*background: none repeat scroll 0 0 #B81007;*/
+  display: block;
+  height: 4px;
+  margin: 0 1px -1px -41px;
+  width: 36px;
+}
+
+#gallery .thumbnail {
+  cursor:default;
+}
+
+.what_people_say {
+  text-align: center;
+  margin-top : 10px;
+  margin-bottom : 30px;
+  p {
+    font-family: @sansFontFamily;
+    font-size: 30px;
+  }
+
+}
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+  background: 3px solid #B81007;
+}
+
+.book-now{
+  width: 162px;
+  .buttonBackground(@red, lighten(@red, 15%));
+  background-image: none;
+  background-repeat: no-repeat;
+  transition: all 0.2s linear 0s;
+}
+
+.check-availability{
+  .buttonBackground(@red, lighten(@red, 15%));
+  background-image: none;
+  background-repeat: no-repeat;
+  transition: all 0.2s linear 0s;
+  margin: 0 auto 40px auto;
+  width: 130px;
+}
+
+.thumbnails.hotel-options li a:hover img {
+  opacity: 0.5;
+}
+.hotel-options.thumbnails .btn{
+  float: left;
+}
+.thumbnails.hotel-options > li {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+.thumbnails.hotel-options > li a{
+  background-color: darken(@white, 10%);
+}
+
+.thumbnails.hotel-options {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+#gallery{
+  min-height: 600px;
+
+}
+.gallery-pills{
+  text-align: center;
+  text-transform: uppercase;
+  transition-property: transform, opacity;
+  transition-duration: 0.8s;
+}
+
+.check-in-date{
+  width: 90px;
+  padding: 1px;
+}
+.datepicker {
+  float: none !important;
+}
+
+#map_canvas, #photo_canvas {
+  width: 100%;
+  height: 350px;
+  overflow: auto;
+  position: relative;
+  background: @black;
+}
+#photo_canvas {
+  background: url('images/banner_wide.jpg');
+  height: 250px;
+}
+
+form.book_now {
+  background: #F4F4F4;
+}
+.form-horizontal .control-label.pay {
+  padding-right: 25px;
+  width: 150px;
+}
+#book-start .ui-datepicker-inline {
+  width: auto ! important
+}
+
+.book-start {
+ .form-horizontal .control-label {
+  width: 141px;
+  padding-right: 19px;
+}
+#total_price {
+  text-align: center;
+}
+.book-now {
+  margin-left: 14.5px;
+}
+}
+.book-pay {
+  h3{
+    margin-top: 0;
+    line-height: normal;
+  } 
+  p{
+    margin: 0;
+    text-transform: uppercase;
+  }
+  .month_picker, .year_picker{
+    width: 149px;
+  }
+  .cvv2{
+    width: 39px;
+  }
+  .card_holder{
+    width: 292px;
+  }  
+}
+.promotions {
+  h3{
+    margin-top: 0;
+    line-height: normal;
+  }
+}
+.form-inline.mini{
+  margin-bottom: 0px;
+  h4{
+    margin-top: 0;
+    line-height: normal;
+  }
+  .book-now{
+    width: 170px;
+  }
+  .control-label {
+    float: left;
+    height: 28px;
+    line-height: 28px;
+  }
+  .check-in-date, .check-out-date{
+    width: 100px;
+  }
+
+}
+.strong{
+  font-weight: bold;
+}
+.price.strong{
+  font-weight: bold;
+}
+.price{
+  font-size: 36px;
+  line-height: 40px;
+  text-align: left;
+  text-transform: uppercase;
+  color: inherit;
+  font-family: inherit;
+  font-weight: 100;
+  line-height: 1;
+  margin: 10px 0;
+  text-rendering: optimizelegibility;
+}
+.custom_container{
+  .clearfix();
+}
+.copy a{
+  color: #fff;
+}
+.main_menu {
+  width: 433px;
+}
+  h5 {
+    position: relative;
+    .pull-left {
+      position: absolute;
+      left: 0;
+    }
+    .pull-right {
+      position: absolute;
+      right: 0;
+    }
+  }
+.home {
+  .price{
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  .home_calendar {
+    .control-group {
+      margin-bottom: 0;
+    }
+    .control-label{
+      width: 65px; margin-left: 10px; margin-bottom: 0;text-align:left;
+    }
+    .controls{
+      margin-left: 77px;
+    }
+    .check-in-date, .check-out-date{
+      width: 110px;
+      float: right;
+      margin-right: 32px;
+    }
+
+    .datepicker_from, .datepicker_to {
+      float: left;
+    }
+  }
+  select.span1{
+    min-width: 60px;
+  }
+}
+.btn-info img {
+  width: 24px;
+}
+
+.booking_summary .address_box{
+  height: 75px;
+}
+div.ui-datepicker{
+  font-size:11px;
+}
+.slider-wrapper{
+  width:100%;
+  min-height:372px;
+  display: block;
+  .nivoSlider{
+    width:100%;
+    min-height:300px;
+  }
+}
+
+
+
