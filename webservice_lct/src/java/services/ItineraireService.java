@@ -36,8 +36,7 @@ public class ItineraireService {
         String KEY = "RESTGP20151212170947528688600615";
         Client client = Client.create();
         WebResource resource = client.resource(baseURL+"1/route.xml/fra?steps=1:e:2.0:48.0;1:e:3.0:49.0&authkey="+KEY);
-        String string = resource.path("1")
-            .accept(MediaType.APPLICATION_XML)
+        String string = resource.accept(MediaType.APPLICATION_XML)
                 .get(String.class);
         return string;
     }

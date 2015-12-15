@@ -4,6 +4,9 @@
     <service name="EtudiantService">
       <implementation-class>services.EtudiantService</implementation-class>
     </service>
+    <service name="ItineraireService">
+      <implementation-class>services.ItineraireService</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
