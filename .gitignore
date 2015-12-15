@@ -1,11 +1,6 @@
-/ProjWS_src/build/
-/ProjWS_src/dist/
-/webservice_lct/nbproject/private/
-/webservice_lct/build/
-/webservice_lct/dist/
-/WebApplication1/nbproject/private/
-/webservice_lct_old/nbproject/private/
+webservice_lct/nbproject/private/
+webservice_lct/build/
+webservice_lct/dist/
 client_lct/build/
 client_lct/dist/
-client_lct/nbproject/
-webservice_lct/nbproject/
+client_lct/nbproject/private
