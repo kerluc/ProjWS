@@ -20,9 +20,9 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Wael
  */
-@WebService(serviceName = "ItineraireService")
+@WebService(serviceName = "ViaMichelinService")
 @Stateless()
-public class ItineraireService {
+public class ViaMichelinService {
 
     /**
      * This is a sample web service operation
