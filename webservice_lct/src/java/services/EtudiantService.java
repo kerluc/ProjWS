@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import entities.Etudiant;
 import entities.facade.EtudiantFacade;
-import javax.jws.WebService;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -18,11 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-/**
- *
- * @author Lucien
- */
-@WebService(serviceName = "EtudiantService")
+@Path("etudiantService")
 @Stateless()
 public class EtudiantService {
     

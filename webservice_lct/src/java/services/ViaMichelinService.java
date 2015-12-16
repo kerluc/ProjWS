@@ -1,37 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import javax.jws.WebService;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- *
- * @author Wael
- */
-@WebService(serviceName = "ViaMichelinService")
+@Path("viaMichelinService")
 @Stateless()
 public class ViaMichelinService {
 
-    /**
-     * This is a sample web service operation
-     */
     @GET
     @Path("find/itineraire")
     @Produces("application/xml")
-    @WebMethod(operationName = "getItineraire")
-    public String getItineraire(@WebParam(name = "adresse") String adresse) {
+    public String getItineraire(@PathParam("adresse") String adresse) {
         String baseURL = "http://apir.viamichelin.com/apir/";
         String KEY = "RESTGP20151212170947528688600615";
         Client client = Client.create();
