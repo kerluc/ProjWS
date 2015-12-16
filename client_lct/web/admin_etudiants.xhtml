@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Template</title>
         
@@ -14,7 +15,7 @@
         <div class="container">
             
             <p:dataTable var="e" value="#{admin.etudiants}">
-                <p:column headerText="#Id">
+                <p:column headerText="#id">
                     <h:outputText value="#{e.id}" />
                 </p:column>
 
@@ -31,7 +32,15 @@
                 </p:column>
                 
                 <p:column headerText="Budget">
-                    <h:outputText value="#{e.budget}€" />
+                    <h:outputText value="#{e.budget}" />€
+                </p:column>
+                <p:column headerText="Actions">
+                    <p:button icon="ui-icon-pencil" value="Edit">
+                        <f:param name="rowid" value="#{e.id}" />
+                    </p:button>
+                    <p:button icon="ui-icon-close" value="Suppr.">
+                        <f:param name="rowid" value="#{e.id}" />
+                    </p:button>
                 </p:column>
             </p:dataTable>
             
