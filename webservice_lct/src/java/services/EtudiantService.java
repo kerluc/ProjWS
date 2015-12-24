@@ -39,7 +39,6 @@ public class EtudiantService {
         e = new Etudiant(nom, prenom, email, password, budget);
         facade.create(e);
         
-        Logger.getLogger(EtudiantService.class.getName()).log(Level.FINE, "CREATE OK");
         return "ok";
     }
     
