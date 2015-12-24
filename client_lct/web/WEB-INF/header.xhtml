@@ -18,8 +18,8 @@
             <li><p:link value="Hotels" href="#"/></li>
             <li><p:link value="Restaurants" href="#"/></li>
             <c:choose>
-                <c:when test="#{sessionManager.session eq null}">
-                    <li><p:link value="Connexion" outcome="create_account"/></li>
+                <c:when test="#{sessionManager.user eq null}">
+                    <li><p:link value="Connexion" outcome="connexion"/></li>
                 </c:when>
                 <c:otherwise>
                     <li><h:form><p:commandLink value="Deconnexion" action="#{sessionManager.logout()}"/></h:form></li>
