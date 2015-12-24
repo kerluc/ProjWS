@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
     @NamedQuery(name = "Etudiant.findByPrenom", query = "SELECT e FROM Etudiant e WHERE e.prenom = :prenom"),
     @NamedQuery(name = "Etudiant.findByEmail", query = "SELECT e FROM Etudiant e WHERE e.email = :email"),
-    @NamedQuery(name = "Etudiant.findByPw", query = "SELECT e FROM Etudiant e WHERE e.pw = :pw"),
     @NamedQuery(name = "Etudiant.findByBudget", query = "SELECT e FROM Etudiant e WHERE e.budget = :budget")})
 public class Etudiant implements Serializable {
 
@@ -50,20 +49,16 @@ public class Etudiant implements Serializable {
     @Column(name = "EMAIL")
     private String email;
     
-    @Column(name = "PW")
-    private String pw;
-    
     @Column(name = "BUDGET")
     private int budget;
 
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String email, String pw, int budget) {
+    public Etudiant(String nom, String prenom, String email, int budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.pw = pw;
         this.budget = budget;
     }
 
@@ -97,14 +92,6 @@ public class Etudiant implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
     }
 
     @XmlElement(name="budget")
@@ -145,7 +132,7 @@ public class Etudiant implements Serializable {
 
     @Override
     public String toString() {
-        return "Etudiant{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", pw=" + pw + ", budget=" + budget + '}';
+        return "Etudiant{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", budget=" + budget + '}';
     }
 
     

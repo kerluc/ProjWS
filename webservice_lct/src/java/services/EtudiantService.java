@@ -22,7 +22,7 @@ import javax.ws.rs.Produces;
  *
  * @author Lucien
  */
-@WebService(serviceName = "EtudiantService")
+@Path(value = "EtudiantService")
 @Stateless()
 public class EtudiantService {
     
@@ -30,28 +30,27 @@ public class EtudiantService {
     EtudiantFacade facade;
     
     @POST
-    @Path("addEtudiant/{nom}/{prenom}/{email}/{password}/{budget}")
+    @Path("addEtudiant/{nom}/{prenom}/{email}/pw{budget}")
     @Produces("text/plain")
     public String addEtudiant(@PathParam("nom") String nom, @PathParam("prenom") String prenom,
-                              @PathParam("email") String email, @PathParam("password") String password,
-                              @PathParam("budget") int budget)
+                              @PathParam("email") String email, @PathParam("budget") int budget)
     {
         Etudiant e = facade.findByEmail(email);
         
         if (e != null) 
             return "fail";
         
-        e = new Etudiant(nom, prenom, email, password, budget);
+        e = new Etudiant(nom, prenom, email, budget);
         facade.create(e);
         return "ok";
     }
     
     @PUT
-    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{password}/{budget}")
+    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{budget}")
     @Produces("text/plain")
     public String editEtudiant(@PathParam("id") Long id, @PathParam("nom") String nom, 
                                @PathParam("prenom") String prenom, @PathParam("email") String email, 
-                               @PathParam("password") String password, @PathParam("budget") int budget)
+                               @PathParam("budget") int budget)
     {
         Etudiant e = facade.findById(id);
         if(e == null)
@@ -61,7 +60,6 @@ public class EtudiantService {
         e.setEmail(email);
         e.setNom(nom);
         e.setPrenom(prenom);
-        e.setPw(password);
         
         facade.edit(e);
         

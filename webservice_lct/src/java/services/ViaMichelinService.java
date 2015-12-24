@@ -20,26 +20,63 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Wael
  */
-@WebService(serviceName = "ViaMichelinService")
+@Path(value = "ViaMichelinService")
 @Stateless()
 public class ViaMichelinService {
+
+    // This method is called if TEXT_PLAIN is request
+    @GET
+    @Path("/hello")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String sayPlainTextHello() {
+        return "Hello Jersey";
+    }
 
     /**
      * This is a sample web service operation
      */
     @GET
-    @Path("find/itineraire")
+    @Path("/itineraire")
     @Produces("application/xml")
     @WebMethod(operationName = "getItineraire")
-    public String getItineraire(@WebParam(name = "adresse") String adresse) {
+    public void getItineraire(@WebParam(name = "adresse") String adresse) {
         String baseURL = "http://apir.viamichelin.com/apir/";
         String KEY = "RESTGP20151212170947528688600615";
         Client client = Client.create();
-        WebResource resource = client.resource(baseURL+"1/route.xml/fra?steps=1:e:2.0:48.0;1:e:3.0:49.0&authkey="+KEY);
-        String string = resource.accept(MediaType.APPLICATION_XML)
-                .get(String.class);
+        WebResource resource
+                = client.resource(baseURL + "1/route.xml/fra?steps=1:e:2.0:48.0;1:e:3.0:49.0&authkey=" + KEY);
+        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
+        //System.out.println(string);
+    }
+
+    @GET
+    @Path("/getHotels")
+    @Produces("application/xml")
+    @WebMethod(operationName = "getHotels")
+    public String getHotels(@WebParam(name = "adresse") String adresse) {
+        String baseURL = "http://apir.viamichelin.com/apir/";
+        String KEY = "RESTGP20151212170947528688600615";
+        Client client = Client.create();
+        WebResource resource
+                = client.resource(baseURL + "2/findPoi.xml/HOTEL/eng?center=2.35:48.85&nb=30&dist=1500&source=HOTGR&filter=AGG.provider eq HOTGR&charset=UTF-8&ie=UTF-8&authKey=" + KEY);
+        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
         return string;
     }
+
+    @GET
+    @Path("/getRestaurants")
+    @Produces("application/xml")
+    @WebMethod(operationName = "getRestaurants")
+    public String getRestaurants(@WebParam(name = "adresse") String adresse) {
+        String baseURL = "http://apir.viamichelin.com/apir/";
+        String KEY = "RESTGP20151212170947528688600615";
+        Client client = Client.create();
+        WebResource resource
+                = client.resource(baseURL + "2/findPoi.xml/RESTAURANT/eng?center=2.35:48.85&nb=10&dist=1000&source=RESGR&filter=AGG.provider eq RESGR&charset=UTF-8&ie=UTF-8&authKey=" + KEY);
+        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
+        return string;
+    }
+
 
 }
 /*
@@ -69,4 +106,4 @@ public class ViaMichelinService {
             @WebParam(name = "callback") String callback,
             @WebParam(name = "charset") String charset,
             @WebParam(name = "ie") String ie)
-*/
+ */
