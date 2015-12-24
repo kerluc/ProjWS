@@ -5,7 +5,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <header class="container">
         
         <div class="span3 logo">
@@ -13,10 +14,17 @@
             <p>&#9733;&#9733;&#9733;&#9733;&#9734;</p>
         </div>
         <ul class="navbar">
-            <li><p:link value="Accueil" href="faces/index.xhtml"/></li>
+            <li><p:link value="Accueil" outcome="index"/></li>
             <li><p:link value="Hotels" href="#"/></li>
             <li><p:link value="Restaurants" href="#"/></li>
-            <li><p:link value="Compte" href="faces/create_account.xhtml"/></li>
+            <c:choose>
+                <c:when test="#{sessionManager.session eq null}">
+                    <li><p:link value="Connexion" outcome="create_account"/></li>
+                </c:when>
+                <c:otherwise>
+                    <li><h:form><p:commandLink value="Deconnexion" action="#{sessionManager.logout()}"/></h:form></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
         <div class="clear"></div>
     </header>

@@ -3,6 +3,8 @@ package services;
 import entities.Etudiant;
 import entities.facade.EtudiantFacade;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -36,15 +38,17 @@ public class EtudiantService {
         
         e = new Etudiant(nom, prenom, email, password, budget);
         facade.create(e);
+        
+        Logger.getLogger(EtudiantService.class.getName()).log(Level.FINE, "CREATE OK");
         return "ok";
     }
     
     @PUT
-    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{budget}")
+    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{pw}/{budget}")
     @Produces("text/plain")
     public String editEtudiant(@PathParam("id") Long id, @PathParam("nom") String nom, 
                                @PathParam("prenom") String prenom, @PathParam("email") String email, 
-                               @PathParam("budget") int budget)
+                               @PathParam("pw") String pw, @PathParam("budget") int budget)
     {
         Etudiant e = facade.findById(id);
         
@@ -54,7 +58,8 @@ public class EtudiantService {
         e.setBudget(budget);
         e.setEmail(email);
         e.setNom(nom);
-        e.setPrenom(prenom);
+        e.setPrenom(prenom);   
+        e.setPw(pw);
         
         facade.edit(e);
         
@@ -94,5 +99,15 @@ public class EtudiantService {
         return "ok";
     }
     
+    @GET
+    @Path("validate/{login}/{pw}")
+    @Produces("application/xml")
+    public Response validate(@PathParam("login") String login, @PathParam("pw") String pw) {
+        Etudiant e = facade.findByLoginAndPw(login, pw);
+        if (e == null)
+            return null;
+        else
+            return Response.status(200).type("application/xml").entity(e).build();
+    }
     
 }

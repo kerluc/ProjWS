@@ -42,7 +42,20 @@ public class EtudiantFacade extends AbstractFacade<Etudiant> {
             return e;
         }
         catch (NoResultException e) {
-            return null;
+            return new Etudiant();
+        }
+    }
+
+    public Etudiant findByLoginAndPw(String login, String pw) {
+        Query q = getEntityManager().createNamedQuery("Etudiant.findByLoginAndPw");
+        q = q.setParameter("login", login);
+        q = q.setParameter("pw", pw);
+        try {
+            Etudiant e = (Etudiant) q.getSingleResult();
+            return e;
+        }
+        catch (NoResultException e) {
+            return new Etudiant();
         }
     }
     
