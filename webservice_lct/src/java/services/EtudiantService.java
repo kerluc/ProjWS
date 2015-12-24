@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import entities.Etudiant;
 import entities.facade.EtudiantFacade;
-import javax.jws.WebService;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -17,12 +14,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.Response;
 
-/**
- *
- * @author Lucien
- */
-@Path(value = "EtudiantService")
+
+@Path("etudiantService")
 @Stateless()
 public class EtudiantService {
     
@@ -42,36 +38,53 @@ public class EtudiantService {
         
         e = new Etudiant(nom, prenom, email, budget);
         facade.create(e);
+        
+        Logger.getLogger(EtudiantService.class.getName()).log(Level.FINE, "CREATE OK");
         return "ok";
     }
     
     @PUT
-    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{budget}")
+    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{pw}/{budget}")
     @Produces("text/plain")
     public String editEtudiant(@PathParam("id") Long id, @PathParam("nom") String nom, 
                                @PathParam("prenom") String prenom, @PathParam("email") String email, 
-                               @PathParam("budget") int budget)
+                               @PathParam("pw") String pw, @PathParam("budget") int budget)
     {
         Etudiant e = facade.findById(id);
+        
         if(e == null)
             return "fail";
         
         e.setBudget(budget);
         e.setEmail(email);
         e.setNom(nom);
-        e.setPrenom(prenom);
+        e.setPrenom(prenom);   
+        e.setPw(pw);
         
         facade.edit(e);
         
         return "ok";
     }
     
+    
+    /**
+     * find/ ou find/{ID}
+     * @param id
+     * @return Response : Etudiant si id est spécifié, sinon tous les étudiants.
+     */
     @GET
-    @Path("find/{id}")
+    @Path("find/{id:([0-9]+)?}")
     @Produces("application/xml")
-    public Etudiant find(@PathParam("id") Long id) {
-        Etudiant e = facade.findById(id);
-        return e;
+    public Response find(@PathParam("id") Long id) {
+        Object response;
+        if(id != null) {
+            response = facade.findById(id);
+        }
+        else {
+            List<Etudiant> list = facade.findAll();
+            response = new GenericEntity< List< Etudiant > >(list) { };
+        }
+        return Response.status(200).type("application/xml").entity(response).build();
     }
     
     @DELETE
@@ -85,4 +98,16 @@ public class EtudiantService {
         facade.remove(e);
         return "ok";
     }
+    
+    @GET
+    @Path("validate/{login}/{pw}")
+    @Produces("application/xml")
+    public Response validate(@PathParam("login") String login, @PathParam("pw") String pw) {
+        Etudiant e = facade.findByLoginAndPw(login, pw);
+        if (e == null)
+            return null;
+        else
+            return Response.status(200).type("application/xml").entity(e).build();
+    }
+    
 }

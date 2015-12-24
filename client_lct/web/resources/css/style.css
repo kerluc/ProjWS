@@ -7,6 +7,7 @@ a{color:inherit;}
 html {
     position: relative;
     min-height: 100%;
+    overflow-y: scroll; 
 }
 
 body {
@@ -88,7 +89,7 @@ h3 span {
     border-bottom: 5px solid #b81007;
 }
 
-.navbar .ui-link {
+.navbar .ui-link, .navbar .ui-commandlink {
     text-decoration: none;
     color: #333333;
     float: none;
@@ -2734,4 +2735,8 @@ input[type="submit"].btn.btn-mini {
 .btn-link[disabled]:hover {
   color: #333333;
   text-decoration: none;
+}
+
+.ui-grid-offset {
+    margin-left: 30px;
 }

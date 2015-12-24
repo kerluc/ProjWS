@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
-import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.ejb.Stateless;
@@ -24,17 +18,6 @@ import javax.ws.rs.core.MediaType;
 @Stateless()
 public class ViaMichelinService {
 
-    // This method is called if TEXT_PLAIN is request
-    @GET
-    @Path("/hello")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String sayPlainTextHello() {
-        return "Hello Jersey";
-    }
-
-    /**
-     * This is a sample web service operation
-     */
     @GET
     @Path("/itineraire")
     @Produces("application/xml")
@@ -76,7 +59,6 @@ public class ViaMichelinService {
         String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
         return string;
     }
-
 
 }
 /*

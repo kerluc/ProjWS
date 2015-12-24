@@ -17,17 +17,53 @@
                 <small>Créer un compte</small>
             </h1>
             <br/>
-            <h:form class="ui-grid">
-                <legend>
-                    Vos informations <span>personnelles</span>
-                </legend>
-                <div class="ui-grid-row">
-                    <p:outputLabel for="lname" value="Nom:" class="ui-grid-col-2"/>
-                    <p:inputText id="lname" value="" placeholder="Nom..." required="true" class="ui-grid-col-3"/>
-                    <span class="ui-grid-col-2"/>
-                    <p:outputLabel for="fname" value="Prénom:" class="ui-grid-col-2"/>
-                    <p:inputText id="fname" value="" placeholder="Prénom..." required="true" class="ui-grid-col-3"/>
+            <div class="ui-grid">
+                <div class="ui-row">
+                    <div class="ui-grid-col-8">
+                        <h:form class="ui-grid">
+                            <legend>
+                                Vos informations <span>personnelles</span>
+                            </legend>
+                            <div class="ui-grid-row">
+                                <p:outputLabel for="lname" value="Nom:" class="ui-grid-col-2"/>
+                                <p:inputText id="lname" value="#{sessionManager.fname}" placeholder="Nom..." required="true" class="ui-grid-col-3"/>
+                                <span class="ui-grid-col-2"/>
+                                <p:outputLabel for="fname" value="Prénom:" class="ui-grid-col-2"/>
+                                <p:inputText id="fname" value="#{sessionManager.lname}" placeholder="Prénom..." required="true" class="ui-grid-col-3"/>
+                            </div>
+                            <div class="ui-grid-row">
+                                <p:outputLabel for="email" value="Email:" class="ui-grid-col-2"/>
+                                <p:inputText id="email" value="#{sessionManager.login}" placeholder="Email..." required="true" class="ui-grid-col-3"/>
+                                <span class="ui-grid-col-2"/>
+                                <p:outputLabel for="pw" value="Mot de passe:" class="ui-grid-col-2"/>
+                                <p:inputText id="pw" value="#{sessionManager.password}" placeholder="Mot de passe.." required="true" class="ui-grid-col-3"/>
+                            </div>
+                            <legend>
+                                Votre <span>budget</span>
+                            </legend>
+                            <div class="ui-grid-row">
+                                <p:outputLabel for="budget" value="Budget:" class="ui-grid-col-2"/>
+                                <p:spinner id="budget" value="#{sessionManager.budget}" prefix="€" min="0" />
+                            </div>
+                            <p:commandButton value="Valider" action="#{sessionManager.create()}" class="btn btn-primary btn-theme pull-right" />
+                        </h:form>
+                    </div>
+                    <div class="ui-grid-col-3 ui-grid-offset">
+                         <h:form class="ui-grid">
+                            <legend>
+                                Déjà <span>un compte ?</span>
+                            </legend>
+                            <div class="ui-grid-row">
+                                <p:inputText id="email" value="#{sessionManager.login}" placeholder="Email..." required="true" class="ui-grid-col-12"/>
+                            </div>
+                            <div class="ui-grid-row">
+                                <p:inputText id="pw" value="#{sessionManager.password}" placeholder="Mot de passe.." required="true" class="ui-grid-col-12"/>
+                            </div>
+                            <p:commandButton value="Connexion" action="#{sessionManager.connect()}" class="btn btn-primary btn-theme" />
+                        </h:form>
+                    </div>
                 </div>
+<<<<<<< HEAD
                 <div class="ui-grid-row">
                     <p:outputLabel for="email" value="Email:" class="ui-grid-col-2"/>
                     <p:inputText id="email" value="" placeholder="Email..." required="true" class="ui-grid-col-3"/>
@@ -44,6 +80,9 @@
                 </div>
                 <p:commandButton value="Valider" type="submit" class="btn btn-primary btn-theme pull-right" />
             </h:form>
+=======
+            </div>
+>>>>>>> 54ff5b90ffbe471dd4389d9d83d89a29f5eebee4
         </div>
         <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
     </h:body>

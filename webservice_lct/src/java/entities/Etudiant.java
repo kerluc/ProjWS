@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -18,10 +13,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author Lucien
- */
 @Entity
 @Table(name = "ETUDIANT")
 @XmlRootElement
@@ -31,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Etudiant.findByNom", query = "SELECT e FROM Etudiant e WHERE e.nom = :nom"),
     @NamedQuery(name = "Etudiant.findByPrenom", query = "SELECT e FROM Etudiant e WHERE e.prenom = :prenom"),
     @NamedQuery(name = "Etudiant.findByEmail", query = "SELECT e FROM Etudiant e WHERE e.email = :email"),
+    @NamedQuery(name = "Etudiant.findByLoginAndPw", query = "SELECT e FROM Etudiant e WHERE e.email = :login AND e.pw = :pw"),
     @NamedQuery(name = "Etudiant.findByBudget", query = "SELECT e FROM Etudiant e WHERE e.budget = :budget")})
 public class Etudiant implements Serializable {
 
@@ -48,6 +40,9 @@ public class Etudiant implements Serializable {
    
     @Column(name = "EMAIL")
     private String email;
+    
+    @Column(name = "PW")
+    private String pw;
     
     @Column(name = "BUDGET")
     private int budget;
@@ -92,6 +87,10 @@ public class Etudiant implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 
     @XmlElement(name="budget")
