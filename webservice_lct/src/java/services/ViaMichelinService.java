@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Wael
  */
-@Path(value = "ViaMichelinService")
+@Path("viaMichelinService")
 @Stateless()
 public class ViaMichelinService {
 
