@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import entities.Etudiant;
@@ -16,20 +11,20 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 
-/**
- *
- * @author Lucien
- */
 @Named(value = "sessionManager")
 @SessionScoped
 public class SessionManager implements Serializable {
 
+    // Types d'utilisateurs possibles
     static final int GUEST = 0;
     static final int USER = 1;
     static final int ADMIN = 2;
-    Etudiant session;
+    
+    // Informations de session
+    Etudiant user;
     int type_account;
     
+    // Pour les formulaires de connexion / enregistrement
     String lname;
     String fname;
     int budget;
@@ -41,12 +36,12 @@ public class SessionManager implements Serializable {
     
     @PostConstruct
     public void init() {
-        session = null;
+        user = null;
         type_account = SessionManager.GUEST;
     }
 
-    public Etudiant getSession() {
-        return session;
+    public Etudiant getUser() {
+        return user;
     }
 
     public int getType_account() {
@@ -96,7 +91,6 @@ public class SessionManager implements Serializable {
     public String create() {
 
             Client client = ClientBuilder.newClient();
-            
             String response = client.target("http://localhost:8080/webservice_lct/rest")
                     .path("etudiantService").path("addEtudiant")
                     .path(lname).path(fname).path(login).path(password).path(String.valueOf(budget))
@@ -104,38 +98,44 @@ public class SessionManager implements Serializable {
                     .post(null, String.class);
             
             if(response.equals("fail")) {
-                Logger.getLogger(SessionManager.class.getName()).log(Level.WARNING, "CREATE ACCOUNT FAILURE");
-                return "index";
+                Logger.getLogger(SessionManager.class.getName()).log(Level.WARNING, "Echec a la creation du compte");
+                clear_form();
+                return "connexion?faces-redirect=true";
             }
             
             return connect();
     }
     
     public String connect() {
-
+            
             Client client = ClientBuilder.newClient();
             Etudiant etudiant = client.target("http://localhost:8080/webservice_lct/rest")
                     .path("etudiantService").path("validate/"+login+"/"+password)
                     .request(MediaType.APPLICATION_XML)
                     .get(Etudiant.class);
             
+            clear_form();
+            
             if(etudiant != null) {
-                session = etudiant;
+                user = etudiant;
                 type_account = USER;
+                return "index?faces-redirect=true";
             }
-            
-            else
-                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, "FAIL CONNECT");
-            
-            return "index?faces-redirect=true";
-            
+            else {
+                Logger.getLogger(SessionManager.class.getName()).log(Level.SEVERE, "Echec a la connexion");   
+                return "connexion?faces-redirect=true";
+            }
     }
     
     public String logout() {
-        session = null;
+        user = null;
         type_account = GUEST;
+        clear_form();
+        return "index?faces-redirect=true";
+    }
+    
+    public void clear_form() {
         fname = lname = password = login = "";
         budget = 0;
-        return "index?faces-redirect=true";
     }
 }

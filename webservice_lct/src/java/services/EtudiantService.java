@@ -39,7 +39,6 @@ public class EtudiantService {
         e = new Etudiant(nom, prenom, email, budget);
         facade.create(e);
         
-        Logger.getLogger(EtudiantService.class.getName()).log(Level.FINE, "CREATE OK");
         return "ok";
     }
     
@@ -103,6 +102,7 @@ public class EtudiantService {
     @Path("validate/{login}/{pw}")
     @Produces("application/xml")
     public Response validate(@PathParam("login") String login, @PathParam("pw") String pw) {
+        // Renvoie l'étudiant pour le login et le pw donné s'il existe (pour la connexion)
         Etudiant e = facade.findByLoginAndPw(login, pw);
         if (e == null)
             return null;

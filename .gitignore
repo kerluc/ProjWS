@@ -5,3 +5,4 @@ client_lct/build/
 client_lct/dist/
 client_lct/nbproject/private/
 webservice_lct\nbproject
+/webservice_lct/src/java/config/

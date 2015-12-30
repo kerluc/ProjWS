@@ -11,6 +11,7 @@
             <web-module-libraries>
                 <library dirs="200">
                     <file>${file.reference.jersey.jar}</file>
+                    <file>${libs.JDOM.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
