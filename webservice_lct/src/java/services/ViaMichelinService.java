@@ -1,17 +1,15 @@
 package services;
 
-<<<<<<< HEAD
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-=======
 import addresses.Coords;
 import addresses.GeocodeParser;
->>>>>>> 19832914d91916f5ba52fcdb6b2d2e2fa4edaee0
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -133,7 +131,7 @@ public class ViaMichelinService {
         return coords;
     }
 }
-<<<<<<< HEAD
+
 /*
             @WebParam(name = "lg") String lg,
             @WebParam(name = "steps") String steps,
@@ -162,5 +160,3 @@ public class ViaMichelinService {
             @WebParam(name = "charset") String charset,
             @WebParam(name = "ie") String ie)
  */
-=======
->>>>>>> 19832914d91916f5ba52fcdb6b2d2e2fa4edaee0

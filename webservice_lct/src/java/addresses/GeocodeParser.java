@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
+import javax.xml.bind.Element;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 public class GeocodeParser {
@@ -18,7 +18,7 @@ public class GeocodeParser {
         
         try {
             
-            Document doc = builder.build(new InputSource( new StringReader( locations ) ) );
+            Document doc = (Document) builder.build(new InputSource( new StringReader( locations ) ) );
             Element root = doc.getRootElement();
 
             Element size = root.getChild("size");
