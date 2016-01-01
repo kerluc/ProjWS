@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Template</title>
+        
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <ui:include src="/WEB-INF/header.xhtml" id="header"/>
+        <div class="container">
+            
+            <p:dataTable var="e" value="#{admin.etudiants}">
+                <p:column headerText="#id">
+                    <h:outputText value="#{e.id}" />
+                </p:column>
+
+                <p:column headerText="Prenom">
+                    <h:outputText value="#{e.prenom}" />
+                </p:column>
+
+                <p:column headerText="Nom">
+                    <h:outputText value="#{e.nom}" />
+                </p:column>
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{e.email}" />
+                </p:column>
+                
+                <p:column headerText="Budget">
+                    <h:outputText value="#{e.budget}" />€
+                </p:column>
+                <p:column headerText="Actions">
+                    <p:button icon="ui-icon-close" value="Suppr.">
+                        <f:param name="rowid" value="#{e.id}" />
+                    </p:button>
+                </p:column>
+            </p:dataTable>
+            
+        </div>
+        <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
+    </h:body>
+</html>
+

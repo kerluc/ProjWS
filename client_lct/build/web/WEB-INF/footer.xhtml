@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+        <footer>
+            <div class="container ui-grid">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <h4>LOWCOST TRIP</h4>
+                        <p>
+                           Projet Web Services<br/>
+                           Lucien KERISIT - Wael KOUJUK<br/>
+                           2015-2016
+                        </p>
+                    </div>
+                    <div class="ui-grid-col-3">
+                        <h4>NAVIGATION</h4>
+                        <ul>
+                            <li><p:link value="Accueil" outcome="index"/></li>
+                            <li><p:link value="Hotels" href="#"/></li>
+                            <li><p:link value="Restaurants" href="#"/></li>
+                            <c:choose>
+                                <c:when test="#{sessionManager.user eq null}">
+                                    <li><p:link value="Connexion" outcome="connexion"/></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><h:form><p:commandLink value="Deconnexion" action="#{sessionManager.logout()}"/></h:form></li>
+                                </c:otherwise>
+                            </c:choose>
+                       </ul>
+                   </div>
+                   <div class="ui-grid-col-5">
+                       <h4>LIENS EXTERNES</h4>
+                       <p:link href="https://github.com/kerluc/ProjWS">
+                           <h:graphicImage alt="Lien vers Github"  value="resources/images/github.png"/>
+                       </p:link>
+                   </div>
+                </div>
+            </div>
+        </footer>
+</ui:composition>
