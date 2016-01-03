@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,7 +29,8 @@ public class Etudiant implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @TableGenerator(name="ETU_GEN", table="SEQUENCE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT", pkColumnValue="ETU_SEQ")
+    @GeneratedValue(strategy=GenerationType.TABLE, generator="ETU_GEN")
     @Column(name = "ID")
     private Long id;
 
@@ -50,10 +52,11 @@ public class Etudiant implements Serializable {
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String email, int budget) {
+    public Etudiant(String nom, String prenom, String email, String pw, int budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.pw = pw;
         this.budget = budget;
     }
 

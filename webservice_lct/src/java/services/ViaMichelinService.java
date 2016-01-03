@@ -1,5 +1,8 @@
 package services;
 
+import entities.Hotel;
+import java.util.List;
+import java.util.logging.Logger;
 import pojo.Coords;
 import pojo.ViaMichelinXMLParser;
 import javax.ejb.Stateless;
@@ -9,7 +12,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -35,34 +40,6 @@ public class ViaMichelinService {
         String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
         //System.out.println(string);
     }
-
-    @GET
-    @Path("/getHotels")
-    @Produces("application/xml")
-    @WebMethod(operationName = "getHotels")
-    public String getHotels(@WebParam(name = "adresse") String adresse) {
-        String baseURL = "http://apir.viamichelin.com/apir/";
-        String KEY = "RESTGP20151212170947528688600615";
-        Client client = Client.create();
-        WebResource resource
-                = client.resource(baseURL + "2/findPoi.xml/HOTEL/eng?center=2.35:48.85&nb=30&dist=1500&source=HOTGR&filter=AGG.provider eq HOTGR&charset=UTF-8&ie=UTF-8&authKey=" + KEY);
-        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-        return string;
-    }
-
-    @GET
-    @Path("/getRestaurants")
-    @Produces("application/xml")
-    @WebMethod(operationName = "getRestaurants")
-    public String getRestaurants(@WebParam(name = "adresse") String adresse) {
-        String baseURL = "http://apir.viamichelin.com/apir/";
-        String KEY = "RESTGP20151212170947528688600615";
-        Client client = Client.create();
-        WebResource resource
-                = client.resource(baseURL + "2/findPoi.xml/RESTAURANT/eng?center=2.35:48.85&nb=10&dist=1000&source=RESGR&filter=AGG.provider eq RESGR&charset=UTF-8&ie=UTF-8&authKey=" + KEY);
-        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-        return string;
-    }
     */
     
     /*
@@ -70,16 +47,22 @@ public class ViaMichelinService {
     ** TODO: utiliser les filtres
     */
     @GET
-    @Path("findHotel/{city}/{address}/{distance}")
+    @Path("findHotel/{city}/{address}/{distance}/{budget}")
     @Produces("application/xml")
-    public String getHotels(@PathParam("city") String city, 
+    public Response getHotels(@PathParam("city") String city, 
                             @PathParam("address") String address, 
-                            @PathParam("distance") int distance) 
+                            @PathParam("distance") int distance,
+                            @PathParam("budget") int budget) 
     {
         Coords coords = getLongLat(city, address);
         
         if (coords == null)
             return null;
+        
+        String filtre = "AGG.provider eq HOTGR";
+        if(budget != 0) {
+            filtre += " AND price_classification eq "+budget;
+        }
         
         String url = ViaMichelinService.BASE_URL+"/2/findPOI.xml";
         Client client = ClientBuilder.newClient();
@@ -91,17 +74,24 @@ public class ViaMichelinService {
                 .queryParam("dist", distance)
                 .queryParam("nb", 50)
                 .queryParam("source", "HOTGR")
-                .queryParam("filter","AGG.provider eq HOTGR")
+                .queryParam("filter", filtre)
                 .queryParam("charset", "UTF-8")
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
         
-        return response;
+        ViaMichelinXMLParser xmlParser = new ViaMichelinXMLParser();
+        List<Hotel> hotels = xmlParser.getHotels(response);
+
+        // On récupère tout et on renvoie pour vérifier
+        Object result;
+        
+        result = new GenericEntity< List< Hotel > >(hotels) { };
+        return Response.status(200).type("application/xml").entity(result).build();
     }
     
     /**
-     * Pour retrouver les longitudes / latitudes depuis une addresse
+     * Pour retrouver les longitudes / latitudes depuis une adresse donnée
      */
     private Coords getLongLat(String city, String address) {
         String url = ViaMichelinService.BASE_URL+"/1/geocode3f.xml";
@@ -124,32 +114,3 @@ public class ViaMichelinService {
         return coords;
     }
 }
-
-/*
-            @WebParam(name = "lg") String lg,
-            @WebParam(name = "steps") String steps,
-            @WebParam(name = "data") String data,
-            @WebParam(name = "veht") String veht,
-            @WebParam(name = "wCaravan") String wCaravan,
-            @WebParam(name = "favMotorways") String favMotorways,
-            @WebParam(name = "avoidBorders") String avoidBorders,
-            @WebParam(name = "avoidTolls") String avoidTolls,
-            @WebParam(name = "avoidCCZ") String avoidCCZ,
-            @WebParam(name = "avoidORC") String avoidORC,
-            @WebParam(name = "multipleIti") String multipleIti,
-            @WebParam(name = "itiIdx") String itiIdx,
-            @WebParam(name = "distUnit") String distUnit,
-            @WebParam(name = "fuelConsump") String fuelConsump,
-            @WebParam(name = "fuelCost") String fuelCost,
-            @WebParam(name = "date") String date,
-            @WebParam(name = "currency") String currency,
-            @WebParam(name = "ecoTax") String ecoTax,
-            @WebParam(name = "truckOpts") String truckOpts,
-            @WebParam(name = "distanceByCountry") String distanceByCountry,
-            @WebParam(name = "authkey") String authkey,
-            @WebParam(name = "signature") String signature,
-            @WebParam(name = "expires") String expires,
-            @WebParam(name = "callback") String callback,
-            @WebParam(name = "charset") String charset,
-            @WebParam(name = "ie") String ie)
- */

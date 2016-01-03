@@ -42,7 +42,7 @@ public class EtudiantFacade extends AbstractFacade<Etudiant> {
             return e;
         }
         catch (NoResultException e) {
-            return new Etudiant();
+            return null;
         }
     }
 
@@ -55,7 +55,7 @@ public class EtudiantFacade extends AbstractFacade<Etudiant> {
             return e;
         }
         catch (NoResultException e) {
-            return new Etudiant();
+            return null;
         }
     }
     

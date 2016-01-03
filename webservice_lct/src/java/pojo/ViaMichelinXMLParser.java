@@ -68,7 +68,7 @@ public class ViaMichelinXMLParser {
                 
                 Hotel h = new Hotel(infos.getChild("name").getText(),
                                     infos.getChild("city").getText(),
-                                    infos.getChild("formated_address_line").getText(),
+                                    infos.getChild("address").getText(),
                                     infos.getChild("local_phone").getText(),
                                     Float.valueOf(infos.getChild("lowest_room_price").getText()));
                 

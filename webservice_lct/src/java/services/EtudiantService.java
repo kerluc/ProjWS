@@ -3,8 +3,6 @@ package services;
 import entities.Etudiant;
 import entities.facade.EtudiantFacade;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -26,17 +24,18 @@ public class EtudiantService {
     EtudiantFacade facade;
     
     @POST
-    @Path("addEtudiant/{nom}/{prenom}/{email}/pw{budget}")
+    @Path("addEtudiant/{nom}/{prenom}/{email}/{pw}/{budget}")
     @Produces("text/plain")
     public String addEtudiant(@PathParam("nom") String nom, @PathParam("prenom") String prenom,
-                              @PathParam("email") String email, @PathParam("budget") int budget)
+                              @PathParam("email") String email, @PathParam("pw") String pw,
+                              @PathParam("budget") int budget)
     {
         Etudiant e = facade.findByEmail(email);
         
         if (e != null) 
             return "fail";
         
-        e = new Etudiant(nom, prenom, email, budget);
+        e = new Etudiant(nom, prenom, email, pw, budget);
         facade.create(e);
         
         return "ok";
