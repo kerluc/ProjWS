@@ -4,6 +4,7 @@ a:visited { color:inherit;}
 a{color:inherit;}
 .clear { clear:both; }
 .pull-right{float:right;}
+
 html {
     position: relative;
     min-height: 100%;
@@ -29,6 +30,7 @@ body {
 header {
     margin-bottom: 60px !important;
 }
+
 footer {
     background: #0d0d0d none repeat scroll 0 0;
     border-top: 3px solid #b81007;
@@ -101,6 +103,10 @@ h3 span {
 
 /* Style du template */
 
+.img-index {
+    width: 100%;
+    height: auto;
+}
 legend{
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
