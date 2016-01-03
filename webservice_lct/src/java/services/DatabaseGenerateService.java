@@ -37,7 +37,7 @@ public class DatabaseGenerateService {
     @Path("generateHotels")
     @Produces("application/xml")
     public Response hotels() {
-        List<Hotel> hotels = service.getHotels("Paris", "6 Quai de Gesvres", 200000).readEntity(new GenericType<List<Hotel>>(){});
+        List<Hotel> hotels = service.getHotels("Paris", "6 Quai de Gesvres", 200000, 0).readEntity(new GenericType<List<Hotel>>(){});
         
         for(Hotel h : hotels) {
                 hotel_facade.create(h);
