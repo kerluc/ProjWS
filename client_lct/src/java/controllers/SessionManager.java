@@ -30,6 +30,8 @@ public class SessionManager implements Serializable {
     int budget;
     String login;
     String password;
+    String city;
+    String address;
     
     public SessionManager() {
     }
@@ -87,13 +89,31 @@ public class SessionManager implements Serializable {
     public void setBudget(int budget) {
         this.budget = budget;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     
     public String create() {
 
             Client client = ClientBuilder.newClient();
             String response = client.target("http://localhost:8080/webservice_lct/rest")
                     .path("etudiantService").path("addEtudiant")
-                    .path(lname).path(fname).path(login).path(password).path(String.valueOf(budget))
+                    .path(lname).path(fname).path(login).path(password)
+                    .path(address).path(city)
+                    .path(String.valueOf(budget))
                     .request(MediaType.TEXT_PLAIN)
                     .post(null, String.class);
             
@@ -135,7 +155,7 @@ public class SessionManager implements Serializable {
     }
     
     public void clear_form() {
-        fname = lname = password = login = "";
+        fname = lname = password = login = city = address = "";
         budget = 0;
     }
 }

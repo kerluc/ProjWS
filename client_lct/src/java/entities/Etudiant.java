@@ -11,15 +11,19 @@ public class Etudiant {
     private String prenom;
     private String email;
     private Integer budget;
+    private String ville;
+    private String adresse;
 
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String email,int budget) {
+    public Etudiant(String nom, String prenom, String email, String ville, String adresse, int budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.budget = budget;
+        this.ville = ville;
+        this.adresse = adresse;
     }
 
     @XmlElement(name="id")
@@ -65,6 +69,22 @@ public class Etudiant {
 
     public void setBudget(int budget) {
         this.budget = budget;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
     }
     
     

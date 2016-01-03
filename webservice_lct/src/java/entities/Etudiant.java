@@ -46,20 +46,28 @@ public class Etudiant implements Serializable {
     @Column(name = "PW")
     private String pw;
     
+    @Column(name="VILLE")
+    private String ville;
+    
+    @Column(name="ADRESSE")
+    private String adresse;
+    
     @Column(name = "BUDGET")
     private int budget;
 
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String email, String pw, int budget) {
+    public Etudiant(String nom, String prenom, String email, String pw, String ville, String adresse, int budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.pw = pw;
+        this.ville = ville;
+        this.adresse = adresse;
         this.budget = budget;
     }
-
+    
     @XmlElement(name="id")
     public Long getId() {
         return id;
@@ -105,14 +113,29 @@ public class Etudiant implements Serializable {
         this.budget = budget;
     }
 
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.id);
         return hash;
     }
-
-    
 
     @Override
     public boolean equals(Object obj) {

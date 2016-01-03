@@ -25,10 +25,10 @@
                             </legend>
                             <div class="ui-grid-row">
                                 <p:outputLabel for="lname" value="Nom:" class="ui-grid-col-2"/>
-                                <p:inputText id="lname" value="#{sessionManager.fname}" placeholder="Nom..." required="true" class="ui-grid-col-3"/>
+                                <p:inputText id="lname" value="#{sessionManager.lname}" placeholder="Nom..." required="true" class="ui-grid-col-3"/>
                                 <span class="ui-grid-col-2"/>
                                 <p:outputLabel for="fname" value="Prénom:" class="ui-grid-col-2"/>
-                                <p:inputText id="fname" value="#{sessionManager.lname}" placeholder="Prénom..." required="true" class="ui-grid-col-3"/>
+                                <p:inputText id="fname" value="#{sessionManager.fname}" placeholder="Prénom..." required="true" class="ui-grid-col-3"/>
                             </div>
                             <div class="ui-grid-row">
                                 <p:outputLabel for="email" value="Email:" class="ui-grid-col-2"/>
@@ -36,6 +36,16 @@
                                 <span class="ui-grid-col-2"/>
                                 <p:outputLabel for="pw" value="Mot de passe:" class="ui-grid-col-2"/>
                                 <p:inputText id="pw" value="#{sessionManager.password}" placeholder="Mot de passe.." required="true" class="ui-grid-col-3"/>
+                            </div>
+                            <legend>
+                                Vos <span>coordonnées</span>
+                            </legend>
+                            <div class="ui-grid-row">
+                                <p:outputLabel for="address" value="Adresse:" class="ui-grid-col-2"/>
+                                <p:inputText id="address" value="#{sessionManager.address}" placeholder="Adresse.." required="true" class="ui-grid-col-3"/>
+                                <span class="ui-grid-col-2"/>
+                                <p:outputLabel for="city" value="Ville:" class="ui-grid-col-2"/>
+                                <p:inputText id="city" value="#{sessionManager.city}" placeholder="Ville..." required="true" class="ui-grid-col-3"/>
                             </div>
                             <legend>
                                 Votre <span>budget</span>

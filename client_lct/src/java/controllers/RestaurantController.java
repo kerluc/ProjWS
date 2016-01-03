@@ -1,8 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controllers;
 
 
 import javax.ejb.Stateless;
-import entities.Hotel;
+import entities.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -12,37 +17,29 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
-
-@Named(value = "hotelController")
+@Named(value = "restaurantController")
 @Stateless
-public class HotelController {
+public class RestaurantController {
 
-    List<Hotel> hotels;
+    List<Restaurant> restaurants;
     String ville;
     String adresse;
     
-    /*
-        1/ Moins de 50 EUR
-        2/ Entre 50 et 70 EUR
-        3/ Entre 70 et 90 EUR
-        4/ Entre 90 et 130 EUR
-        5/ Supérieur à 130 EUR
-    */
     int budget;
     
     // distance de recherche (en km)
     int range;
     
-    public HotelController() {
+    public RestaurantController() {
     }
     
     @PostConstruct
     public void init() {
-        hotels = new ArrayList<>();
+        restaurants = new ArrayList<>();
     }
 
-    public List<Hotel> getHotels() {
-        return hotels;
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
     
     public String getVille() {
@@ -79,16 +76,16 @@ public class HotelController {
     
     public String search() {
         Client client = ClientBuilder.newClient();
-            hotels  = client.target("http://localhost:8080/webservice_lct/rest")
-                    .path("viaMichelinService").path("findHotel")
+            restaurants  = client.target("http://localhost:8080/webservice_lct/rest")
+                    .path("viaMichelinService").path("findRestaurant")
                     .path(ville)
                     .path(adresse)
                     .path(String.valueOf(range*1000))
                     .path(String.valueOf(budget))
                     .request(MediaType.APPLICATION_XML)
-                    .get().readEntity(new GenericType<List<Hotel>>(){});
+                    .get().readEntity(new GenericType<List<Restaurant>>(){});
             
             
-            return "hotel?faces-redirect=true";
+            return "restaurant?faces-redirect=true";
     }
 }

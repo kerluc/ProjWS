@@ -39,7 +39,7 @@ public class Coords {
 
     @Override
     public String toString() {
-        return "Coords{" + "address=" + address + ", longitude=" + longitude + ", latitude=" + latitude + '}';
+        return longitude+":"+latitude;
     }
     
     

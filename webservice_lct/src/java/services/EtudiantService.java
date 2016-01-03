@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
-
 @Path("etudiantService")
 @Stateless()
 public class EtudiantService {
@@ -24,10 +23,11 @@ public class EtudiantService {
     EtudiantFacade facade;
     
     @POST
-    @Path("addEtudiant/{nom}/{prenom}/{email}/{pw}/{budget}")
+    @Path("addEtudiant/{nom}/{prenom}/{email}/{pw}/{adresse}/{ville}/{budget}")
     @Produces("text/plain")
     public String addEtudiant(@PathParam("nom") String nom, @PathParam("prenom") String prenom,
                               @PathParam("email") String email, @PathParam("pw") String pw,
+                              @PathParam("adresse") String adresse, @PathParam("ville") String ville,
                               @PathParam("budget") int budget)
     {
         Etudiant e = facade.findByEmail(email);
@@ -35,17 +35,18 @@ public class EtudiantService {
         if (e != null) 
             return "fail";
         
-        e = new Etudiant(nom, prenom, email, pw, budget);
+        e = new Etudiant(nom, prenom, email, pw, ville, adresse, budget);
         facade.create(e);
         
         return "ok";
     }
     
     @PUT
-    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{pw}/{budget}")
+    @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{pw}/{adresse}/{ville}/{budget}")
     @Produces("text/plain")
     public String editEtudiant(@PathParam("id") Long id, @PathParam("nom") String nom, 
-                               @PathParam("prenom") String prenom, @PathParam("email") String email, 
+                               @PathParam("prenom") String prenom, @PathParam("email") String email,
+                               @PathParam("adresse") String adresse, @PathParam("ville") String ville,
                                @PathParam("pw") String pw, @PathParam("budget") int budget)
     {
         Etudiant e = facade.findById(id);
@@ -58,6 +59,8 @@ public class EtudiantService {
         e.setNom(nom);
         e.setPrenom(prenom);   
         e.setPw(pw);
+        e.setVille(ville);
+        e.setAdresse(adresse);
         
         facade.edit(e);
         
