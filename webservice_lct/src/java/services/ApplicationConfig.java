@@ -16,7 +16,8 @@ public class ApplicationConfig extends Application {
     public Set<Class<?>> getClasses() {
         return new HashSet<>(Arrays.asList(
                 EtudiantService.class,
-                ViaMichelinService.class
+                ViaMichelinService.class,
+                DatabaseGenerateService.class
         ));
     }
 }

@@ -23,8 +23,8 @@
                         <h4>NAVIGATION</h4>
                         <ul>
                             <li><p:link value="Accueil" outcome="index"/></li>
-                            <li><p:link value="Hotels" href="#"/></li>
-                            <li><p:link value="Restaurants" href="#"/></li>
+                            <li><p:link value="Hotels" outcome="hotel"/></li>
+                            <li><p:link value="Restaurants" outcome="restaurant"/></li>
                             <c:choose>
                                 <c:when test="#{sessionManager.user eq null}">
                                     <li><p:link value="Connexion" outcome="connexion"/></li>

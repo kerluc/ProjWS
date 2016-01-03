@@ -1,11 +1,7 @@
 package services;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import addresses.Coords;
-import addresses.GeocodeParser;
+import pojo.Coords;
+import pojo.ViaMichelinXMLParser;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -85,10 +81,6 @@ public class ViaMichelinService {
         if (coords == null)
             return null;
         
-        // On vérifie qu'on dépasse pas les bornes imposées par l'API
-        distance = (distance < 1000) ? 1000 : distance;
-        distance = (distance > 200000) ? 200000 : distance;
-        
         String url = ViaMichelinService.BASE_URL+"/2/findPOI.xml";
         Client client = ClientBuilder.newClient();
         String response = client.target(url)
@@ -97,8 +89,9 @@ public class ViaMichelinService {
                 .queryParam("center", coords.getLongitude()+":"+coords.getLatitude())
                 .queryParam("authkey", config.ConfigViaMichelin.auth_key)
                 .queryParam("dist", distance)
-                .queryParam("nb", 40)
-                .queryParam("source", "HOTGR")        
+                .queryParam("nb", 50)
+                .queryParam("source", "HOTGR")
+                .queryParam("filter","AGG.provider eq HOTGR")
                 .queryParam("charset", "UTF-8")
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
@@ -125,7 +118,7 @@ public class ViaMichelinService {
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
         
-        GeocodeParser parser = new GeocodeParser();
+        ViaMichelinXMLParser parser = new ViaMichelinXMLParser();
         Coords coords = parser.getCoords(response);
         
         return coords;
