@@ -20,53 +20,36 @@ import javax.ws.rs.core.Response;
 @Stateless()
 public class ViaMichelinService {
 
-        
     static final String BASE_URL = "http://apir.viamichelin.com/apir";
-    
-    /*
-    @GET
-    @Path("/itineraire")
-    @Produces("application/xml")
-    @WebMethod(operationName = "getItineraire")
-    public void getItineraire(@WebParam(name = "adresse") String adresse) {
-        String baseURL = "http://apir.viamichelin.com/apir/";
-        String KEY = "RESTGP20151212170947528688600615";
-        Client client = Client.create();
-        WebResource resource
-                = client.resource(baseURL + "1/route.xml/fra?steps=1:e:2.0:48.0;1:e:3.0:49.0&authkey=" + KEY);
-        String string = resource.accept(MediaType.APPLICATION_XML).get(String.class);
-        //System.out.println(string);
-    }
-    */
-    
+
     /*
     ** trouver des hotels dans un certain rayon autour d'une adresse
     ** TODO: utiliser les filtres
-    */
+     */
     @GET
     @Path("findHotel/{city}/{address}/{distance}/{budget}")
     @Produces("application/xml")
-    public Response getHotels(@PathParam("city") String city, 
-                            @PathParam("address") String address, 
-                            @PathParam("distance") int distance,
-                            @PathParam("budget") int budget) 
-    {
+    public Response getHotels(@PathParam("city") String city,
+            @PathParam("address") String address,
+            @PathParam("distance") int distance,
+            @PathParam("budget") int budget) {
         Coords coords = getLongLat(city, address);
-        
-        if (coords == null)
+
+        if (coords == null) {
             return null;
-        
-        String filtre = "AGG.provider eq HOTGR";
-        if(budget != 0) {
-            filtre += " AND price_classification eq "+budget;
         }
-        
-        String url = ViaMichelinService.BASE_URL+"/2/findPOI.xml";
+
+        String filtre = "AGG.provider eq HOTGR";
+        if (budget != 0) {
+            filtre += " AND price_classification eq " + budget;
+        }
+
+        String url = ViaMichelinService.BASE_URL + "/2/findPOI.xml";
         Client client = ClientBuilder.newClient();
         String response = client.target(url)
                 .path("HOTEL")
                 .path("fra")
-                .queryParam("center", coords.getLongitude()+":"+coords.getLatitude())
+                .queryParam("center", coords.getLongitude() + ":" + coords.getLatitude())
                 .queryParam("authkey", "RESTGP20151212170947528688600615")
                 .queryParam("dist", distance)
                 .queryParam("nb", 50)
@@ -76,43 +59,43 @@ public class ViaMichelinService {
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
-        
+
         ViaMichelinXMLParser xmlParser = new ViaMichelinXMLParser();
         List<Hotel> hotels = xmlParser.getHotels(response);
 
         // On récupère tout et on renvoie pour vérifier
         Object result;
-        
-        result = new GenericEntity< List< Hotel > >(hotels) { };
+
+        result = new GenericEntity< List< Hotel>>(hotels) {
+        };
         return Response.status(200).type("application/xml").entity(result).build();
     }
-    
+
     /*
     ** trouver des restaurants dans un certain rayon autour d'une adresse
-    */
+     */
     @GET
     @Path("findRestaurant/{city}/{address}/{distance}/{budget}")
     @Produces("application/xml")
-    public Response getRestaurants(@PathParam("city") String city, 
-                            @PathParam("address") String address, 
-                            @PathParam("distance") int distance,
-                            @PathParam("budget") int budget) 
-    {
-        
-        
+    public Response getRestaurants(@PathParam("city") String city,
+            @PathParam("address") String address,
+            @PathParam("distance") int distance,
+            @PathParam("budget") int budget) {
+
         Coords coordonees = getLongLat(city, address);
 
-        if (coordonees == null)
+        if (coordonees == null) {
             return null;
-
-        String coords = coordonees.getLongitude()+":"+coordonees.getLatitude();
-        
-        String filtre = "AGG.provider eq RESGR";
-        if(budget != 0) {
-            filtre += " AND price_classification eq "+budget;
         }
-        
-        String url = ViaMichelinService.BASE_URL+"/2/findPOI.xml";
+
+        String coords = coordonees.getLongitude() + ":" + coordonees.getLatitude();
+
+        String filtre = "AGG.provider eq RESGR";
+        if (budget != 0) {
+            filtre += " AND price_classification eq " + budget;
+        }
+
+        String url = ViaMichelinService.BASE_URL + "/2/findPOI.xml";
         Client client = ClientBuilder.newClient();
         String response = client.target(url)
                 .path("RESTAURANT")
@@ -127,25 +110,27 @@ public class ViaMichelinService {
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
-        
+
         ViaMichelinXMLParser xmlParser = new ViaMichelinXMLParser();
         List<Restaurant> restaurants = xmlParser.getRestaurants(response);
 
         // On récupère tout et on renvoie pour vérifier
         Object result;
-        
-        result = new GenericEntity< List< Restaurant > >(restaurants) { };
+
+        result = new GenericEntity< List< Restaurant>>(restaurants) {
+        };
         return Response.status(200).type("application/xml").entity(result).build();
     }
-    
+
     /**
      * Pour retrouver les longitudes / latitudes depuis une adresse donnée
+     *
      * @param city
      * @param address
      * @return coordonees pour l'adresse donnée
      */
     protected Coords getLongLat(String city, String address) {
-        String url = ViaMichelinService.BASE_URL+"/1/geocode3f.xml";
+        String url = ViaMichelinService.BASE_URL + "/1/geocode3f.xml";
         Client client = ClientBuilder.newClient();
         String response = client.target(url)
                 .queryParam("lg", "fra")
@@ -158,10 +143,38 @@ public class ViaMichelinService {
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
-        
+
         ViaMichelinXMLParser parser = new ViaMichelinXMLParser();
         Coords coords = parser.getCoords(response);
-        
+
         return coords;
     }
+
+    @GET
+    @Path("/itineraire")
+    @Produces("application/xml")
+    public String getItineraire(@PathParam("address") String address, @PathParam("city") String city) {
+        
+        Coords coordonees = getLongLat(city, address);
+        if (coordonees == null) {
+            return null;
+        }
+        String coords = coordonees.getLongitude() + ":" + coordonees.getLatitude();
+        
+        String url = ViaMichelinService.BASE_URL + "/1/route.xml";
+        Client client = ClientBuilder.newClient();
+        String response = client.target(url)
+                .path("fra")
+                .queryParam("steps", coords)
+                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("charset", "UTF-8")
+                .queryParam("ie", "UTF-8")
+                .request(MediaType.APPLICATION_XML)
+                .get(String.class);
+        
+        return response;
+    }
+    //exemple requete reims -> paris
+    //http://apir.viamichelin.com/apir/1/Route.xml/
+    //fra/?steps=1%3Ae%3A4.03309%3A49.2566%3B1%3Ae%3A1.90398%3A47.90139&distUnit=m&currency=EUR&fuelCost=1.4&veht=0&itit=0&tollCat=car&itiIdx=0&favMotorways=true&authKey=RESTGP20151212170947528688600615&charset=UTF-8
 }
