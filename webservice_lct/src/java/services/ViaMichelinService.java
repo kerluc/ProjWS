@@ -151,7 +151,7 @@ public class ViaMichelinService {
     }
 
     @GET
-    @Path("/itineraire")
+    @Path("/itineraire/{address}/{city}")
     @Produces("application/xml")
     public String getItineraire(@PathParam("address") String address, @PathParam("city") String city) {
         
@@ -172,7 +172,7 @@ public class ViaMichelinService {
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
         
-        return response;
+        return "<img src='" + response + "'/>";
     }
     //exemple requete reims -> paris
     //http://apir.viamichelin.com/apir/1/Route.xml/
