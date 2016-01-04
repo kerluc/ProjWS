@@ -161,9 +161,10 @@ public class ViaMichelinService {
         }
         String coords = coordonees.getLongitude() + ":" + coordonees.getLatitude();
         
-        String url = ViaMichelinService.BASE_URL + "/1/route.xml";
+        //
+        String urlroute = ViaMichelinService.BASE_URL + "/1/route.xml";
         Client client = ClientBuilder.newClient();
-        String response = client.target(url)
+        String iti_trace = client.target(urlroute)
                 .path("fra")
                 .queryParam("steps", coords)
                 .queryParam("authkey", "RESTGP20151212170947528688600615")
@@ -172,7 +173,20 @@ public class ViaMichelinService {
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
         
-        return "<img src='" + response + "'/>";
+        String urlMap = ViaMichelinService.BASE_URL + "/1/bestMap.xml";
+        Client client2 = ClientBuilder.newClient();
+        String map = client2.target(urlMap)
+                .path("6.1:45.8:6.2:46.0")
+                .path("800:600")
+                .queryParam("iti_trace", iti_trace)
+                .queryParam("fra")
+                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("charset", "UTF-8")
+                .queryParam("ie", "UTF-8")
+                .request(MediaType.APPLICATION_XML)
+                .get(String.class);
+        
+        return map;
     }
     //exemple requete reims -> paris
     //http://apir.viamichelin.com/apir/1/Route.xml/

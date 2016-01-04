@@ -1,6 +1,5 @@
 package controllers;
 
-
 import javax.ejb.Stateless;
 import entities.Restaurant;
 import java.util.ArrayList;
@@ -19,15 +18,15 @@ public class RestaurantController {
     List<Restaurant> restaurants;
     String ville;
     String adresse;
-    
+
     int budget;
-    
+
     // distance de recherche (en km)
     int range;
-    
+
     public RestaurantController() {
     }
-    
+
     @PostConstruct
     public void init() {
         restaurants = new ArrayList<>();
@@ -36,7 +35,7 @@ public class RestaurantController {
     public List<Restaurant> getRestaurants() {
         return restaurants;
     }
-    
+
     public String getVille() {
         return ville;
     }
@@ -68,19 +67,24 @@ public class RestaurantController {
     public void setRange(int range) {
         this.range = range;
     }
-    
+
     public String search() {
         Client client = ClientBuilder.newClient();
-            restaurants  = client.target("http://localhost:8080/webservice_lct/rest")
-                    .path("viaMichelinService").path("findRestaurant")
-                    .path(ville)
-                    .path(adresse)
-                    .path(String.valueOf(range*1000))
-                    .path(String.valueOf(budget))
-                    .request(MediaType.APPLICATION_XML)
-                    .get().readEntity(new GenericType<List<Restaurant>>(){});
-            
-            
-            return "restaurant?faces-redirect=true";
+        restaurants = client.target("http://localhost:8080/webservice_lct/rest")
+                .path("viaMichelinService").path("findRestaurant")
+                .path(ville)
+                .path(adresse)
+                .path(String.valueOf(range * 1000))
+                .path(String.valueOf(budget))
+                .request(MediaType.APPLICATION_XML)
+                .get().readEntity(new GenericType<List<Restaurant>>() {
+                });
+
+        return "restaurant?faces-redirect=true";
     }
+
+    public String itineraire() {
+        return "restaurant?faces-redirect=true";
+    }
+    
 }
