@@ -6,9 +6,13 @@
 package entities.facade;
 
 import entities.Hotel;
+import java.util.Date;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +31,18 @@ public class HotelFacade extends AbstractFacade<Hotel> {
 
     public HotelFacade() {
         super(Hotel.class);
+    }
+
+    public Hotel findByTel(String tel) {
+        Query q = getEntityManager().createNamedQuery("Hotel.findByTel");
+        q = q.setParameter("tel", tel);
+        try {
+            Hotel h = (Hotel)q.getSingleResult();
+            return h;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

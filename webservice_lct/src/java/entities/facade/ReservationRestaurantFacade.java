@@ -5,8 +5,9 @@
  */
 package entities.facade;
 
-import entities.Hotel;
-import entities.Restaurant;
+import entities.ReservationHotel;
+import entities.ReservationRestaurant;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,7 +19,7 @@ import javax.persistence.Query;
  * @author Lucien
  */
 @Stateless
-public class RestaurantFacade extends AbstractFacade<Restaurant> {
+public class ReservationRestaurantFacade extends AbstractFacade<ReservationRestaurant> {
 
     @PersistenceContext(unitName = "webservice_lct_pu")
     private EntityManager em;
@@ -28,16 +29,16 @@ public class RestaurantFacade extends AbstractFacade<Restaurant> {
         return em;
     }
 
-    public RestaurantFacade() {
-        super(Restaurant.class);
+    public ReservationRestaurantFacade() {
+        super(ReservationRestaurant.class);
     }
     
-    public Restaurant findByAdresse(String adresse) {
-        Query q = getEntityManager().createNamedQuery("Restaurant.findByAdresse");
-        q = q.setParameter("adresse", adresse);
+    public List<ReservationRestaurant> findByEtudiant(Long id) {
+        Query q = getEntityManager().createNamedQuery("ReservationRestaurant.findByEtudiant");
+        q = q.setParameter("id", id);
         try {
-            Restaurant h = (Restaurant)q.getSingleResult();
-            return h;
+            List<ReservationRestaurant> r = q.getResultList();
+            return r;
         }
         catch (NoResultException e) {
             return null;

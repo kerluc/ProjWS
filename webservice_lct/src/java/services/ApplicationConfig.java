@@ -17,6 +17,7 @@ public class ApplicationConfig extends Application {
         return new HashSet<>(Arrays.asList(
                 EtudiantService.class,
                 ViaMichelinService.class,
+                ReservationService.class,
                 DatabaseGenerateService.class
         ));
     }

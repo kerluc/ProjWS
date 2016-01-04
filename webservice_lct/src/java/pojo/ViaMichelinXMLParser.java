@@ -1,6 +1,5 @@
 package pojo;
 
-import entities.Chambre;
 import entities.Hotel;
 import entities.Restaurant;
 import java.io.IOException;
@@ -39,9 +38,7 @@ public class ViaMichelinXMLParser {
             coords.setLatitude(Float.valueOf(location.getChild("coords").getChild("lat").getText()));
             coords.setLongitude(Float.valueOf(location.getChild("coords").getChild("lon").getText()));
             
-        } catch (JDOMException ex) {
-            Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (JDOMException | IOException ex) {
             Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
@@ -71,21 +68,13 @@ public class ViaMichelinXMLParser {
                                     infos.getChild("city").getText(),
                                     infos.getChild("address").getText(),
                                     infos.getChild("local_phone").getText(),
-                                    Float.valueOf(infos.getChild("lowest_room_price").getText()));
-                
-                
-                int nb_rooms = Integer.valueOf(infos.getChild("nb_rooms").getText());
-                
-                for(int i = 0; i < nb_rooms; ++i) {
-                    h.addChambre(new Chambre(h));
-                }
-                               
+                                    Float.valueOf(infos.getChild("lowest_room_price").getText()),
+                                    Integer.valueOf(infos.getChild("nb_rooms").getText()));
+                 
                 hotels.add(h);
             }
             
-        } catch (JDOMException ex) {
-            Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (JDOMException | IOException ex) {
             Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
         } 
         
@@ -123,9 +112,7 @@ public class ViaMichelinXMLParser {
                 restaurants.add(r);
             }
             
-        } catch (JDOMException ex) {
-            Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (JDOMException | IOException ex) {
             Logger.getLogger(ViaMichelinXMLParser.class.getName()).log(Level.SEVERE, null, ex);
         } 
         

@@ -3,7 +3,6 @@ package services;
 import entities.Hotel;
 import entities.Restaurant;
 import java.util.List;
-import java.util.logging.Logger;
 import pojo.Coords;
 import pojo.ViaMichelinXMLParser;
 import javax.ejb.Stateless;
@@ -109,7 +108,6 @@ public class ViaMichelinService {
 
         String coords = coordonees.getLongitude()+":"+coordonees.getLatitude();
         
-        Logger.getAnonymousLogger().severe(coords);
         String filtre = "AGG.provider eq RESGR";
         if(budget != 0) {
             filtre += " AND price_classification eq "+budget;
@@ -131,7 +129,6 @@ public class ViaMichelinService {
                 .request(MediaType.APPLICATION_XML)
                 .get(String.class);
         
-        Logger.getAnonymousLogger().severe(response);
         ViaMichelinXMLParser xmlParser = new ViaMichelinXMLParser();
         List<Restaurant> restaurants = xmlParser.getRestaurants(response);
 

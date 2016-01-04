@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>LOWCOST TRIP - Rechercher un restaurant</title>
     </h:head>
@@ -60,6 +61,20 @@
 
                 <p:column headerText="Prix d'un menu">
                     <h:outputText value="#{r.prix}" />&nbsp;€
+                </p:column>
+                
+                <p:column headerText="Actions">
+                    <c:choose>
+                        <c:when test="#{sessionManager.user ne null}">
+                            <p:commandLink value="Réserver" action="#{reservationController.reserver_step1()}">
+                                <f:setPropertyActionListener value="restaurant" target="#{reservationController.selectedType}"/>
+                                <f:setPropertyActionListener value="#{r}" target="#{reservationController.selectedRest}"/>
+                            </p:commandLink>
+                        </c:when>
+                        <c:otherwise>
+                            <p:commandLink value="Réserver" disabled="true"></p:commandLink>
+                        </c:otherwise>
+                    </c:choose>
                 </p:column>
             </p:dataTable>
         </div>

@@ -6,15 +6,13 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,6 +20,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "HOTEL")
+@NamedQueries({
+    @NamedQuery(name = "Hotel.findById", query = "SELECT e FROM Hotel e WHERE e.id = :id"),
+    @NamedQuery(name = "Hotel.findByTel", query = "SELECT e FROM Hotel e WHERE e.tel = :tel")})
 public class Hotel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,8 +48,8 @@ public class Hotel implements Serializable {
     @Column(name="PRIX")
     private float prix;
         
-    @OneToMany(mappedBy="hotel", cascade = CascadeType.PERSIST)
-    private List<Chambre> chambres = new ArrayList<>();
+    @Column(name="NB_CHAMBRES")
+    private int nb_chambres;
     
     public Long getId() {
         return id;
@@ -98,27 +99,25 @@ public class Hotel implements Serializable {
         this.prix = prix;
     }
 
-    public List<Chambre> getChambres() {
-        return chambres;
+    public int getNb_chambres() {
+        return nb_chambres;
     }
 
-    public void addChambre(Chambre c) {
-        this.chambres.add(c);
-        if (c.getHotel() != this) {
-            c.setHotel(this);
-        }
+    public void setNb_chambres(int nb_chambres) {
+        this.nb_chambres = nb_chambres;
     }
 
     public Hotel () {
         
     }
 
-    public Hotel(String nom, String ville, String adresse, String tel, float prix) {
+    public Hotel(String nom, String ville, String adresse, String tel, float prix, int nb_chambres) {
         this.nom = nom;
         this.ville = ville;
         this.adresse = adresse;
         this.tel = tel;
         this.prix = prix;
+        this.nb_chambres = nb_chambres;
     }
     
     @Override
@@ -143,7 +142,7 @@ public class Hotel implements Serializable {
 
     @Override
     public String toString() {
-        return "Hotel{" + "id=" + id + ", nom=" + nom + ", ville=" + ville + ", adresse=" + adresse + ", tel=" + tel + ", prix=" + prix + ", chambres=" + chambres + '}';
+        return "Hotel{" + "id=" + id + ", nom=" + nom + ", ville=" + ville + ", adresse=" + adresse + ", tel=" + tel + ", prix=" + prix + ", chambres=" + nb_chambres + '}';
     }
 
     
