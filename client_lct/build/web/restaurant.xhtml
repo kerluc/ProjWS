@@ -56,12 +56,11 @@
                 <p:commandButton action="#{restaurantController.search()}" value="J'ai déja fait une réservation" class="btn btn-primary btn-theme btn-mini btn-success" />
                 <br></br><br></br>
 
-                
-                <div id="Itineraire">
-                    <div><img name="mapImage" id="mapImage" src=''/></div>
-                    <div><img name="mapImage" id="mapImage" width="300" src="http://m1.viamichelin.com/mapsgene/dm/59I257PyFrEsJd_Jeke99B4iGneb_tZY9cq1UEe29l4Szyw_wgx329Doalhw7kc2aRchMk_IWR791OV=U5z8499JlH11-riIQxMO0"/></div>
-                </div>
-                
+                <h:commandButton id="itineraire" value="itineraire" action="#{restaurantController.search()}"
+                                 onclick="return checkPasswords();" type="Submit" />              
+
+                <div id="itineraire"></div>
+
 
                 <legend>
                     Critères de recherche
@@ -86,7 +85,7 @@
                     </div>
                 </div>
                 <br></br>
-                <p:commandButton action="#{restaurantController.search()}" value="Chercher" class="btn btn-primary btn-theme" />
+                <p:commandButton value="itineraire" class="btn btn-primary btn-theme" />
 
             </h:form>
             <br></br>
@@ -131,5 +130,12 @@
         </div>
         <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
     </h:body>
+    <script src="{{URL::asset('js/jquery-1.10.2.min.js')}}"></script>
+    <script>
+        $('#itineraire').on("click", function () {
+     var map = '<div><img name="mapImage" id="mapImage"  src="http://m1.viamichelin.com/mapsgene/dm/59I257PyFrEsJd_Jeke99B4iGneb_tZY9cq1UEe29l4Szyw_wgx329Doalhw7kc2aRchMk_IWR791OV=U5z8499JlH11-riIQxMO0"/></div>'
+    $(map).insertAfter($('#mapImage'));
+   });
+    </script>
 </html>
 
