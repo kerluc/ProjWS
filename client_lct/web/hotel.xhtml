@@ -21,29 +21,29 @@
                 Mes réservations d' <span>hotels :</span>
             </legend>
             <h:panelGrid columns="2">  
-                <p:dataTable value="#{restaurantController.restaurants}" var="res">
-                    
+                <p:dataTable value="#{ReservationController.selectedHotel}" var="res">
+
                     <p:column headerText="Nom de l'hotel" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.id}" />
+                        <h:outputText value="#{res.nom}" />
                     </p:column>
-                    
+
                     <p:column headerText="Adresse" style="background-color: #ffcc66">
-                        <h:outputText value="#{hotel.adresse}" /><br/>
-                        <h:outputText value="#{hotel.ville}" />
+                        <h:outputText value="#{res.adresse}" /><br/>
+                        <h:outputText value="#{res.ville}" />
                     </p:column>
 
                     <p:column headerText="Téléphone" style="background-color: #ffcc66">
-                        <h:outputText value="#{hotel.tel}" />
+                        <h:outputText value="#{res.tel}" />
                     </p:column>
-                    
+
                     <p:column headerText="Date de début" style="background-color: #ffcc66">
-                        <h:outputText value="#{hotel.prix}" />
+                        <h:outputText value="#{ReservationController.debut}" />
                     </p:column>
-                    
+
                     <p:column headerText="Date de fin" style="background-color: #ffcc66">
-                        <h:outputText value="#{hotel.prix}" />
+                        <h:outputText value="#{ReservationController.fin}" />
                     </p:column>
-                    
+
                     <p:column headerText="Etat de la réservation" style="background-color: #ffcc66">
                         <h:outputText value="Réservé" />
                     </p:column>
@@ -63,6 +63,9 @@
                     <p:outputLabel for="ville" value="Ville :" class="ui-grid-col-1"/>
                     <p:inputText id="ville" value="#{hotelController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
                 </div>
+
+                <p:commandButton action="#{restaurantController.search()}" value="J'ai déja fait une réservation" class="btn btn-primary btn-theme btn-mini btn-success" />
+                <br></br><br></br>
 
                 <legend>
                     Critères de recherche

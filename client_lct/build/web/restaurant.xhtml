@@ -22,14 +22,14 @@
                 Mes réservations au <span>restaurant :</span>
             </legend>
             <h:panelGrid columns="2">  
-                <p:dataTable value="#{restaurantController.restaurants}" var="r">
+                <p:dataTable value="#{ReservationController.selectedRest}" var="res">
                     
                     <p:column headerText="Nom du restaurant" style="background-color: #ffcc66">
-                        <h:outputText value="#{r.id}" />
+                        <h:outputText value="#{res.nom}" />
                     </p:column>
                     
                      <p:column headerText="Date de reservation" style="background-color: #ffcc66">
-                        <h:outputText value="#{r.id}" />
+                        <h:outputText value="#{res.debut}" />
                     </p:column>
                     
                     <p:column headerText="Itinéraire" style="background-color: #ffcc66">
