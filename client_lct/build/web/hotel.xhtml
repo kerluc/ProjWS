@@ -4,7 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>LOWCOST TRIP - Rechercher un hotel</title>
     </h:head>
@@ -15,51 +16,111 @@
                 Rechercher votre Hotel<br/>
                 <small>Hotels</small>
             </h1>
+
+            <legend>
+                Mes réservations d' <span>hotels :</span>
+            </legend>
+            <h:panelGrid columns="2">  
+                <p:dataTable value="#{restaurantController.restaurants}" var="res">
+                    
+                    <p:column headerText="Nom de l'hotel" style="background-color: #ffcc66">
+                        <h:outputText value="#{res.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Adresse" style="background-color: #ffcc66">
+                        <h:outputText value="#{hotel.adresse}" /><br/>
+                        <h:outputText value="#{hotel.ville}" />
+                    </p:column>
+
+                    <p:column headerText="Téléphone" style="background-color: #ffcc66">
+                        <h:outputText value="#{hotel.tel}" />
+                    </p:column>
+                    
+                    <p:column headerText="Date de début" style="background-color: #ffcc66">
+                        <h:outputText value="#{hotel.prix}" />
+                    </p:column>
+                    
+                    <p:column headerText="Date de fin" style="background-color: #ffcc66">
+                        <h:outputText value="#{hotel.prix}" />
+                    </p:column>
+                    
+                    <p:column headerText="Etat de la réservation" style="background-color: #ffcc66">
+                        <h:outputText value="Réservé" />
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGrid>
+
             <br/>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <p:inputText id="adresse" value="#{hotelController.adresse}" label="Adresse" placeholder="ex: Rue de la Joliette" required="true"/>
-                    <p:inputText id="ville" value="#{hotelController.ville}" label="Ville" placeholder="ex: Marseille" required="true"/>
-                </h:panelGrid>
-                
-                <h:panelGrid columns="1">
-                    <p:selectOneMenu id="budget" value="#{hotelController.budget}">
-                        <f:selectItem itemLabel="-" itemValue="0"/>
+            <h:form class="ui-grid">
+                <legend>
+                    Adresse
+                </legend>
+                <div class="ui-grid-row">
+                    <p:outputLabel for="adresse" value="Rue :" class="ui-grid-col-1"/>
+                    <p:inputText id="adresse" value="#{hotelController.adresse}" label="Adresse" placeholder="ex: Rue de la Joliette" required="true" class="ui-grid-col-4"/>
+                    <div class="ui-grid-col-2"/>
+                    <p:outputLabel for="ville" value="Ville :" class="ui-grid-col-1"/>
+                    <p:inputText id="ville" value="#{hotelController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
+                </div>
+
+                <legend>
+                    Critères de recherche
+                </legend>
+
+                <div class="ui-grid-row">
+                    <p:outputLabel for="budget" value="Prix :" class="ui-grid-col-3"/>
+                    <p:selectOneMenu id="budget" value="#{hotelController.budget}" class="ui-grid-col-4">
+                        <f:selectItem itemLabel="illimité" itemValue="0"/>
                         <f:selectItem itemLabel="Moins de 50€" itemValue="1"/>
                         <f:selectItem itemLabel="50-70€" itemValue="2"/>
                         <f:selectItem itemLabel="70-90€" itemValue="3"/>
                         <f:selectItem itemLabel="90-130€" itemValue="4"/>
                         <f:selectItem itemLabel="Plus de 130€" itemValue="5"/>
                     </p:selectOneMenu>
-                </h:panelGrid>
-                
-                <h:panelGrid columns="1">
-                    <p:inputText id="distance" value="#{hotelController.range}"/>
-                    <p:slider for="distance" minValue="1" maxValue="200"/>
-                </h:panelGrid>
-                <p:commandButton action="#{hotelController.search()}" value="Chercher"/>
+                </div>
+                <div class="ui-grid-row">
+                    <p:outputLabel for="distance" value="Rayon de recherche (km) :" class="ui-grid-col-3"/>
+                    <div class="ui-grid-col-4">
+                        <p:inputText id="distance" value="#{hotelController.range}" style="width:100%"/>
+                        <p:spacer/>
+                        <p:slider for="distance" minValue="1" maxValue="200" />
+                    </div>
+                </div>
+                <p:commandButton action="#{hotelController.search()}" value="Chercher" class="btn btn-primary btn-theme"/>
             </h:form>
-            
-            <p:dataTable value="#{hotelController.hotels}" var="hotel">
-                <p:column headerText="Id">
-                    <h:outputText value="#{hotel.id}" />
-                </p:column>
+            <p:spacer height="10"/>
 
-                <p:column headerText="Nom">
+            <p:dataTable value="#{hotelController.hotels}" var="hotel">
+                <p:column headerText="Nom" style="background-color: #ffcc66">
                     <h:outputText value="#{hotel.nom}" />
                 </p:column>
-                
-                <p:column headerText="Adresse">
+
+                <p:column headerText="Adresse" style="background-color: #ffcc66">
                     <h:outputText value="#{hotel.adresse}" /><br/>
                     <h:outputText value="#{hotel.ville}" />
                 </p:column>
 
-                <p:column headerText="Téléphone">
+                <p:column headerText="Téléphone" style="background-color: #ffcc66">
                     <h:outputText value="#{hotel.tel}" />
                 </p:column>
 
-                <p:column headerText="Prix d'une nuitée">
+                <p:column headerText="Prix d'une nuitée" style="background-color: #ffcc66">
                     <h:outputText value="#{hotel.prix}" />&nbsp;€
+                </p:column>
+
+                <p:column headerText="Actions" style="background-color: #ffcc66">
+                    <c:choose>
+                        <c:when test="#{sessionManager.user eq null}">
+                            <p:commandLink value="Réserver" disabled="true"></p:commandLink>
+                        </c:when>
+                        <c:otherwise>
+                            <p:commandLink value="Réserver" action="#{reservationController.reserver_step1()}">
+                                <f:setPropertyActionListener value="hotel" target="#{reservationController.selectedType}"/>
+                                <f:setPropertyActionListener value="#{hotel}" target="#{reservationController.selectedHotel}"/>
+                            </p:commandLink>
+                        </c:otherwise>
+                    </c:choose>
                 </p:column>
             </p:dataTable>
         </div>

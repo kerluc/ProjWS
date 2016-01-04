@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>LOWCOST TRIP - Réserver un #{reservationController.selectedType}</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/header.xhtml" id="header"/>
+        <div class="container">
+            <h1>
+                Réservez votre #{reservationController.selectedType}<br/>
+                <small>Choisissez les dates</small>
+            </h1>
+            <br/>
+            <legend>
+                Détails de <span>l'établissement</span>
+            </legend>
+            <c:choose>
+                <c:when test="#{reservationController.selectedType eq 'hotel'}">
+                    <p>
+                        Hotel : #{reservationController.selectedHotel.nom}<br/>
+                        Adresse : #{reservationController.selectedHotel.adresse} - #{reservationController.selectedHotel.ville}<br/>
+                        Tel. : #{reservationController.selectedHotel.tel}<br/>
+                        Prix d'une nuitée : #{reservationController.selectedHotel.prix} €<br/>
+                    </p>
+                </c:when>
+                <c:when test="#{reservationController.selectedType eq 'restaurant'}">
+                    Hotel : #{reservationController.selectedRest.nom}<br/>
+                    Adresse : #{reservationController.selectedRest.adresse} - #{reservationController.selectedRest.ville}<br/>
+                    Type de cuisine : #{reservationController.selectedRest.type}<br/>
+                    Prix d'un menu : #{reservationController.selectedRest.prix} €<br/>
+                </c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
+            
+            <legend>
+                Dates <span>souhaitées</span>
+            </legend>
+            <h:form>
+                <c:choose>
+                    <c:when test="#{reservationController.selectedType eq 'hotel'}">  
+                        <h:panelGrid columns="2">
+                            <p:outputLabel for="deb" value="Arrivée le"/>
+                            <p:outputLabel for="fin" value="Départ le"/>
+
+                            <p:calendar id="deb" value="#{reservationController.debut}" mode="inline"></p:calendar>
+                            <p:calendar id="fin" value="#{reservationController.fin}" mode="inline"></p:calendar>
+                        </h:panelGrid>
+                    </c:when>
+                    <c:otherwise>
+                        <h:panelGrid columns="1">
+                            <p:outputLabel for="deb" value="Arrivée le"/>
+                            <p:calendar id="deb" value="#{reservationController.debut}" mode="inline"></p:calendar>
+                        </h:panelGrid>
+                    </c:otherwise>
+                </c:choose>
+                <p:commandButton value="Réserver" action="#{reservationController.reserver_step2()}">
+                    <f:setPropertyActionListener value="#{sessionManager.user}" target="#{reservationController.e}"/>
+                </p:commandButton>
+            </h:form>
+        </div>
+        <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
+    </h:body>
+</html>
+

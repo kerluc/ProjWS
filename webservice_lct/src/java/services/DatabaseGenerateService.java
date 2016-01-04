@@ -1,6 +1,5 @@
 package services;
 
-import entities.Etudiant;
 import entities.Hotel;
 import entities.facade.EtudiantFacade;
 import entities.facade.HotelFacade;
@@ -10,12 +9,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
-import pojo.ViaMichelinXMLParser;
 
 /**
  * N'utiliser ce service que pour remplir la base de données avec des tuples de bases

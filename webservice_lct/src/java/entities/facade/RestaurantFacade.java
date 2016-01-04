@@ -5,10 +5,13 @@
  */
 package entities.facade;
 
+import entities.Hotel;
 import entities.Restaurant;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +32,15 @@ public class RestaurantFacade extends AbstractFacade<Restaurant> {
         super(Restaurant.class);
     }
     
+    public Restaurant findByAdresse(String adresse) {
+        Query q = getEntityManager().createNamedQuery("Restaurant.findByAdresse");
+        q = q.setParameter("adresse", adresse);
+        try {
+            Restaurant h = (Restaurant)q.getSingleResult();
+            return h;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+    }
 }

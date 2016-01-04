@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>LOWCOST TRIP - Réserver un #{reservationController.selectedType}</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/WEB-INF/header.xhtml" id="header"/>
+        <div class="container">
+            <h1>
+                Réservez votre #{reservationController.selectedType}<br/>
+                <small>Résumé</small>
+            </h1>
+            <br/>
+            <legend>
+                Détails de <span>l'établissement</span>
+            </legend>
+            <c:choose>
+                <c:when test="#{reservationController.selectedType eq 'hotel'}">
+                    <p>
+                        Hotel : #{reservationController.selectedHotel.nom}<br/>
+                        Adresse : #{reservationController.selectedHotel.adresse} - #{reservationController.selectedHotel.ville}<br/>
+                        Tel. : #{reservationController.selectedHotel.tel}<br/>
+                        Prix d'une nuitée : #{reservationController.selectedHotel.prix} €<br/>
+                    </p>
+                </c:when>
+                <c:when test="#{reservationController.selectedType eq 'restaurant'}">
+                    Hotel : #{reservationController.selectedRest.nom}<br/>
+                    Adresse : #{reservationController.selectedRest.adresse} - #{reservationController.selectedRest.ville}<br/>
+                    Type de cuisine : #{reservationController.selectedRest.type}<br/>
+                    Prix d'un menu : #{reservationController.selectedRest.prix} €<br/>
+                </c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
+            <legend>
+                Etat de votre <span>réservation</span>
+            </legend>
+            <p>
+                #{reservationController.responseMessage}
+            </p>
+        </div>
+        <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
+    </h:body>
+</html>
+
