@@ -89,7 +89,6 @@ public class ViaMichelinService {
     
     /*
     ** trouver des restaurants dans un certain rayon autour d'une adresse
-    ** Si coords non nul alors privilégier les coordonées
     */
     @GET
     @Path("findRestaurant/{city}/{address}/{distance}/{budget}")

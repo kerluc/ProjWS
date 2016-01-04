@@ -17,35 +17,46 @@
                 <small>RESTAURANTS</small>
             </h1>
             <br/>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <p:inputText id="adresse" value="#{restaurantController.adresse}" label="Adresse" placeholder="ex: Rue de la Joliette" required="true"/>
-                    <p:inputText id="ville" value="#{restaurantController.ville}" label="Ville" placeholder="ex: Marseille" required="true"/>
-                </h:panelGrid>
+            <h:form class="ui-grid">
+                <legend>
+                    Adresse
+                </legend>
+                <div class="ui-grid-row">
+                    <p:outputLabel for="adresse" value="Rue :" class="ui-grid-col-1"/>
+                    <p:inputText id="adresse" value="#{restaurantController.adresse}" label="Adresse" placeholder="ex: Rue de la Joliette" required="true" class="ui-grid-col-4"/>
+                    <div class="ui-grid-col-2"/>
+                    <p:outputLabel for="ville" value="Ville :" class="ui-grid-col-1"/>
+                    <p:inputText id="ville" value="#{restaurantController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
+                </div>
                 
-                <h:panelGrid columns="1">
-                    <p:selectOneMenu id="budget" value="#{restaurantController.budget}">
+                <legend>
+                    Critères de recherche
+                </legend>
+                
+                    <div class="ui-grid-row">
+                    <p:outputLabel for="budget" value="Prix :" class="ui-grid-col-3"/>
+                    <p:selectOneMenu id="budget" value="#{restaurantController.budget}" class="ui-grid-col-4">
                         <f:selectItem itemLabel="-" itemValue="0"/>
-                        <f:selectItem itemLabel="Moins de 15€" itemValue="1"/>
-                        <f:selectItem itemLabel="15-20€" itemValue="2"/>
-                        <f:selectItem itemLabel="20-25€" itemValue="3"/>
-                        <f:selectItem itemLabel="25-35€" itemValue="4"/>
-                        <f:selectItem itemLabel="Plus de 35€" itemValue="5"/>
+                        <f:selectItem itemLabel="Moins de 50€" itemValue="1"/>
+                        <f:selectItem itemLabel="50-70€" itemValue="2"/>
+                        <f:selectItem itemLabel="70-90€" itemValue="3"/>
+                        <f:selectItem itemLabel="90-130€" itemValue="4"/>
+                        <f:selectItem itemLabel="Plus de 130€" itemValue="5"/>
                     </p:selectOneMenu>
-                </h:panelGrid>
-                
-                <h:panelGrid columns="1">
-                    <p:inputText id="distance" value="#{restaurantController.range}"/>
-                    <p:slider for="distance" minValue="1" maxValue="200"/>
-                </h:panelGrid>
-                <p:commandButton action="#{restaurantController.search()}" value="Chercher"/>
+                </div>
+                <div class="ui-grid-row">
+                    <p:outputLabel for="distance" value="Rayon de recherche (km) :" class="ui-grid-col-3"/>
+                    <div class="ui-grid-col-4">
+                        <p:inputText id="distance" value="#{restaurantController.range}" style="width:100%"/>
+                        <p:spacer/>
+                        <p:slider for="distance" minValue="1" maxValue="200" />
+                    </div>
+                </div>
+                <p:commandButton action="#{restaurantController.search()}" value="Chercher" class="btn btn-primary btn-theme"/>
             </h:form>
+            <p:spacer height="10"/>
             
             <p:dataTable value="#{restaurantController.restaurants}" var="r">
-                <p:column headerText="Id">
-                    <h:outputText value="#{r.id}" />
-                </p:column>
-
                 <p:column headerText="Nom">
                     <h:outputText value="#{r.nom}" />
                 </p:column>

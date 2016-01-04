@@ -6,8 +6,6 @@
 package entities.facade;
 
 import entities.Hotel;
-import java.util.Date;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
