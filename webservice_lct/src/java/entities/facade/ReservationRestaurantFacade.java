@@ -35,4 +35,13 @@ public class ReservationRestaurantFacade extends AbstractFacade<ReservationResta
             return null;
         }
     }
+
+    public void removeByIdEtud(Long id) {
+        List<ReservationRestaurant> reservations = findByEtudiant(id);
+        if(reservations != null) {
+            for(ReservationRestaurant r : reservations) {
+                remove(r);
+            }
+        }
+    }
 }

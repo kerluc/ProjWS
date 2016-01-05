@@ -10,6 +10,7 @@ public class Etudiant {
     private String nom;
     private String prenom;
     private String email;
+    private String pw;
     private Integer budget;
     private String ville;
     private String adresse;
@@ -17,10 +18,11 @@ public class Etudiant {
     public Etudiant() {
     }
 
-    public Etudiant(String nom, String prenom, String email, String ville, String adresse, int budget) {
+    public Etudiant(String nom, String prenom, String email, String pw, String ville, String adresse, int budget) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
+        this.pw = pw;
         this.budget = budget;
         this.ville = ville;
         this.adresse = adresse;
@@ -85,6 +87,19 @@ public class Etudiant {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getPw() {
+        return pw;
+    }
+
+    public void setPw(String pw) {
+        this.pw = pw;
+    }
+
+    @Override
+    public String toString() {
+        return "Etudiant{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", pw=" + pw + ", budget=" + budget + ", ville=" + ville + ", adresse=" + adresse + '}';
     }
     
     

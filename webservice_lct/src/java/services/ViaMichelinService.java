@@ -1,5 +1,6 @@
 package services;
 
+import config.ConfigViaMichelin;
 import entities.Hotel;
 import entities.Restaurant;
 import java.util.List;
@@ -50,7 +51,7 @@ public class ViaMichelinService {
                 .path("HOTEL")
                 .path("fra")
                 .queryParam("center", coords.getLongitude() + ":" + coords.getLatitude())
-                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("authkey", ConfigViaMichelin.auth_key)
                 .queryParam("dist", distance)
                 .queryParam("nb", 50)
                 .queryParam("source", "HOTGR")
@@ -101,7 +102,7 @@ public class ViaMichelinService {
                 .path("RESTAURANT")
                 .path("fra")
                 .queryParam("center", coords)
-                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("authkey", ConfigViaMichelin.auth_key)
                 .queryParam("dist", distance)
                 .queryParam("nb", 50)
                 .queryParam("source", "RESGR")
@@ -138,7 +139,7 @@ public class ViaMichelinService {
                 .queryParam("cityzip", city)
                 .queryParam("address", address)
                 .queryParam("nb", String.valueOf(20))
-                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("authkey", ConfigViaMichelin.auth_key)
                 .queryParam("charset", "UTF-8")
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
@@ -167,7 +168,7 @@ public class ViaMichelinService {
         String iti_trace = client.target(urlroute)
                 .path("fra")
                 .queryParam("steps", coords)
-                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("authkey", ConfigViaMichelin.auth_key)
                 .queryParam("charset", "UTF-8")
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)
@@ -180,7 +181,7 @@ public class ViaMichelinService {
                 .path("800:600")
                 .queryParam("iti_trace", iti_trace)
                 .queryParam("fra")
-                .queryParam("authkey", "RESTGP20151212170947528688600615")
+                .queryParam("authkey", ConfigViaMichelin.auth_key)
                 .queryParam("charset", "UTF-8")
                 .queryParam("ie", "UTF-8")
                 .request(MediaType.APPLICATION_XML)

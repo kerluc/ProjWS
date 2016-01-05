@@ -6,40 +6,75 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Template</title>
+        <title>LOWCOST Trip - Administration utilisateurs</title>
         
     </h:head>
     <h:body>
         <ui:include src="/WEB-INF/header.xhtml" id="header"/>
         <div class="container">
             
-            <p:dataTable var="e" value="#{admin.etudiants}">
-                <p:column headerText="#id">
-                    <h:outputText value="#{e.id}" />
-                </p:column>
-
+            <h:form>
+            <p:dataTable var="e" value="#{admin.etudiants}" editable="true">
+                <p:ajax event="rowEdit" listener="#{admin.editEtudiant}" update=""/>
+                <p:ajax event="rowEditInit" listener="#{admin.editInit}" update=""/>
+                
                 <p:column headerText="Prenom">
-                    <h:outputText value="#{e.prenom}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.prenom}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.prenom}" style="width:100%" label="Prenom"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Nom">
-                    <h:outputText value="#{e.nom}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.nom}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.nom}" style="width:100%" label="Nom"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
 
                 <p:column headerText="Email">
-                    <h:outputText value="#{e.email}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.email}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.email}" style="width:100%" label="Email"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="PW">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.pw}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.pw}" style="width:100%" label="Mot de passe"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Adresse">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.adresse}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.adresse}" style="width:100%" label="Adresse"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+                
+                <p:column headerText="Ville">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.ville}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.ville}" style="width:100%" label="Ville"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
                 
                 <p:column headerText="Budget">
-                    <h:outputText value="#{e.budget}" />€
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{e.budget}" /> €</f:facet>
+                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.budget}" style="width:100%" label="Budget"/></f:facet>
+                    </p:cellEditor>
                 </p:column>
+                
                 <p:column headerText="Actions">
-                    <p:button icon="ui-icon-close" value="Suppr.">
-                        <f:param name="rowid" value="#{e.id}" />
-                    </p:button>
+                    <p:commandLink value="Supprimer" action="#{admin.supprEtudiant()}">
+                        <f:setPropertyActionListener value="#{e}" target="#{admin.selectedEtudiant}"/>
+                    </p:commandLink><br/>
+                    <p:rowEditor/>
                 </p:column>
             </p:dataTable>
-            
+            </h:form>
         </div>
         <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
     </h:body>

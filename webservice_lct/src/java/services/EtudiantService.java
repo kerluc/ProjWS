@@ -2,7 +2,10 @@ package services;
 
 import entities.Etudiant;
 import entities.facade.EtudiantFacade;
+import entities.facade.ReservationHotelFacade;
+import entities.facade.ReservationRestaurantFacade;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -21,6 +24,13 @@ public class EtudiantService {
     
     @Inject
     EtudiantFacade facade;
+    
+    @Inject
+    ReservationHotelFacade facade_res_hotels;
+    
+    @Inject
+    ReservationRestaurantFacade facade_res_restos;
+    
     
     @POST
     @Path("addEtudiant/{nom}/{prenom}/{email}/{pw}/{adresse}/{ville}/{budget}")
@@ -41,7 +51,7 @@ public class EtudiantService {
         return "ok";
     }
     
-    @PUT
+    @GET
     @Path("editEtudiant/{id}/{nom}/{prenom}/{email}/{pw}/{adresse}/{ville}/{budget}")
     @Produces("text/plain")
     public String editEtudiant(@PathParam("id") Long id, @PathParam("nom") String nom, 
@@ -96,6 +106,8 @@ public class EtudiantService {
         if (e == null)
             return "fail";
         
+        facade_res_hotels.removeByIdEtud(id);
+        facade_res_restos.removeByIdEtud(id);
         facade.remove(e);
         return "ok";
     }
