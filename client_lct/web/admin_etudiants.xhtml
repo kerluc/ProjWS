@@ -14,66 +14,69 @@
         <div class="container">
             
             <h:form>
-            <p:dataTable var="e" value="#{admin.etudiants}" editable="true">
-                <p:ajax event="rowEdit" listener="#{admin.editEtudiant}" update=""/>
-                <p:ajax event="rowEditInit" listener="#{admin.editInit}" update=""/>
-                
-                <p:column headerText="Prenom">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.prenom}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.prenom}" style="width:100%" label="Prenom"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+                <p:dataTable var="e" value="#{adminUsers.etudiants}" editable="true">
+                    <p:ajax event="rowEdit" listener="#{adminUsers.editEtudiant}" update=""/>
+                    <p:ajax event="rowEditInit" listener="#{adminUsers.editInit}" update=""/>
 
-                <p:column headerText="Nom">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.nom}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.nom}" style="width:100%" label="Nom"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
+                    <p:column headerText="Prenom">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.prenom}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.prenom}" style="width:100%" label="Prenom"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                <p:column headerText="Email">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.email}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.email}" style="width:100%" label="Email"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-                
-                <p:column headerText="PW">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.pw}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.pw}" style="width:100%" label="Mot de passe"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-                
-                <p:column headerText="Adresse">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.adresse}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.adresse}" style="width:100%" label="Adresse"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-                
-                <p:column headerText="Ville">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.ville}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.ville}" style="width:100%" label="Ville"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-                
-                <p:column headerText="Budget">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{e.budget}" /> €</f:facet>
-                        <f:facet name="input"><p:inputText value="#{admin.selectedEtudiant.budget}" style="width:100%" label="Budget"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-                
-                <p:column headerText="Actions">
-                    <p:commandLink value="Supprimer" action="#{admin.supprEtudiant()}">
-                        <f:setPropertyActionListener value="#{e}" target="#{admin.selectedEtudiant}"/>
-                    </p:commandLink><br/>
-                    <p:rowEditor/>
-                </p:column>
-            </p:dataTable>
+                    <p:column headerText="Nom">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.nom}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.nom}" style="width:100%" label="Nom"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Email">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.email}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.email}" style="width:100%" label="Email"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="PW">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.pw}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.pw}" style="width:100%" label="Mot de passe"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Adresse">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.adresse}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.adresse}" style="width:100%" label="Adresse"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Ville">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.ville}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.ville}" style="width:100%" label="Ville"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Budget">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{e.budget}" /> €</f:facet>
+                            <f:facet name="input"><p:inputText value="#{adminUsers.selectedEtudiant.budget}" style="width:100%" label="Budget"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Actions">
+                        <p:commandLink value="Réservations.." action="#{adminReservation.showReservations()}">
+                            <f:setPropertyActionListener value="#{e}" target="#{adminReservation.user}"/>
+                        </p:commandLink><br/>
+                        <p:commandLink value="Supprimer" action="#{adminUsers.supprEtudiant()}">
+                            <f:setPropertyActionListener value="#{e}" target="#{adminUsers.selectedEtudiant}"/>
+                        </p:commandLink><br/>
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>
             </h:form>
         </div>
         <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>

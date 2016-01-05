@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "res_restaurant")
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "ReservationRestaurant.findById", query = "SELECT e FROM ReservationRestaurant e WHERE e.id = :id"),
     @NamedQuery(name = "ReservationRestaurant.findByEtudiant", query = "SELECT r FROM ReservationRestaurant r WHERE r.etudiant.id = :id")})
 public class ReservationRestaurant implements Serializable {
     
@@ -37,7 +38,7 @@ public class ReservationRestaurant implements Serializable {
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="ID_RESTO")
-    private Restaurant restau;
+    private Restaurant restaurant;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     @Column(name="DATE_DEB")
@@ -48,7 +49,7 @@ public class ReservationRestaurant implements Serializable {
 
     public ReservationRestaurant(Etudiant etudiant, Restaurant restau, Date debut) {
         this.etudiant = etudiant;
-        this.restau = restau;
+        this.restaurant = restau;
         this.date_debut = debut;
     }
 
@@ -68,12 +69,12 @@ public class ReservationRestaurant implements Serializable {
         this.etudiant = etudiant;
     }
 
-    public Restaurant getRestau() {
-        return restau;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestau(Restaurant restau) {
-        this.restau = restau;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Date getDate_debut() {
@@ -86,7 +87,7 @@ public class ReservationRestaurant implements Serializable {
 
     @Override
     public String toString() {
-        return "ReservationRestaurant{" + "id=" + id + ", etudiant=" + etudiant + ", restau=" + restau + ", date_debut=" + date_debut + '}';
+        return "ReservationRestaurant{" + "id=" + id + ", etudiant=" + etudiant + ", restau=" + restaurant + ", date_debut=" + date_debut + '}';
     }
 
     

@@ -119,7 +119,6 @@ public class ReservationController {
         if(selectedType.equals("hotel"))
         {    
             
-        Logger.getAnonymousLogger().severe(selectedType);
             reservation.setDeb(debut);
             reservation.setFin(fin);
             reservation.setHotel(selectedHotel);

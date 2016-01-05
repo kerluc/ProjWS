@@ -23,6 +23,18 @@ public class ReservationHotelFacade extends AbstractFacade<ReservationHotel> {
         super(ReservationHotel.class);
     }
 
+    public ReservationHotel findById(Long id) {
+        Query q = getEntityManager().createNamedQuery("ReservationHotel.findById");
+        q = q.setParameter("id", id);
+        try {
+            ReservationHotel e = (ReservationHotel) q.getSingleResult();
+            return e;
+        }
+        catch (NoResultException e) {
+            return null;
+        }
+    }
+        
     public List<ReservationHotel> findByEtudiant(Long id) {
         Query q = getEntityManager().createNamedQuery("ReservationHotel.findByEtudiant");
         q = q.setParameter("id", id);

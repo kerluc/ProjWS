@@ -14,6 +14,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -52,6 +53,18 @@ public class ReservationService {
         response = new GenericEntity< List< ReservationHotel > >(result) { };
         return Response.status(200).type("application/xml").entity(response).build();
    }
+   
+   @Path("findResRestoByUser/{id_etudiant}")
+   @GET
+   @Produces("application/xml")
+   public Response findResRestoByUser(@PathParam("id_etudiant") Long id) {
+        List<ReservationRestaurant> result = resrestaurant_facade.findByEtudiant(id);
+        if (result == null)
+            return null;
+        Object response; 
+        response = new GenericEntity< List< ReservationRestaurant > >(result) { };
+        return Response.status(200).type("application/xml").entity(response).build();
+   }   
    
    @Path("addResHotel/{id_etudiant}")
    @POST
@@ -92,4 +105,28 @@ public class ReservationService {
        resrestaurant_facade.create(reservation);
        return "ok";
    }
+   
+    @DELETE
+    @Path("deleteResHotel/{id}")
+    @Produces("text/plain")
+    public String deleteResHotel(@PathParam("id") Long id) {
+        ReservationHotel e = reshotel_facade.findById(id);
+        if (e == null)
+            return "fail";
+        
+        reshotel_facade.remove(e);
+        return "ok";
+    }
+    
+    @DELETE
+    @Path("deleteResResto/{id}")
+    @Produces("text/plain")
+    public String deleteResResto(@PathParam("id") Long id) {
+        ReservationRestaurant e = resrestaurant_facade.findById(id);
+        if (e == null)
+            return "fail";
+        
+        resrestaurant_facade.remove(e);
+        return "ok";
+    }
 }

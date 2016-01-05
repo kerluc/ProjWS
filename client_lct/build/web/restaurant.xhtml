@@ -32,10 +32,6 @@
                         <h:outputText value="#{res.debut}" />
                     </p:column>
 
-                    <p:column headerText="Itinéraire" style="background-color: #ffcc66">
-                        <p:commandButton value="Itinéraire" action="#{sessionManager.create()}" class="btn btn-primary btn-success" />
-                    </p:column>   
-
                 </p:dataTable>
             </h:panelGrid>
 
@@ -52,8 +48,6 @@
                     <h:outputLabel value="Ville :" class="ui-grid-col-1" />
                     <p:inputText id="ville" value="#{restaurantController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
                 </div>
-
-                <p:commandButton action="#{restaurantController.search()}" value="J'ai déja fait une réservation" class="btn btn-primary btn-theme btn-mini btn-success" />
                 <br></br><br></br>
 
                 <h:commandButton id="itineraire" value="itineraire" action="#{restaurantController.search()}"
@@ -86,7 +80,9 @@
                 </div>
                 <br></br>
                 <p:commandButton value="itineraire" class="btn btn-primary btn-theme" />
-
+                
+                <p:commandButton action="#{restaurantController.search()}" value="Chercher" class="btn btn-primary btn-theme btn-mini btn-success" />
+                
             </h:form>
             <br></br>
 
@@ -107,10 +103,6 @@
 
                 <p:column headerText="Prix d'un menu" style="background-color: #ffcc66">
                     <h:outputText value="#{r.prix}" />&nbsp;€
-                </p:column>
-
-                <p:column headerText="Itinéraire" style="background-color: #ffcc66">
-                    <p:commandButton value="Itinéraire" action="#{sessionManager.create()}" class="btn btn-primary btn-success" />
                 </p:column>
 
                 <p:column headerText="Actions" style="background-color: #ffcc66">

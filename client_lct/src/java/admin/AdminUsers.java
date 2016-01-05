@@ -13,9 +13,9 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.primefaces.event.RowEditEvent;
 
-@Named(value = "admin")
+@Named(value = "adminUsers")
 @Stateless
-public class Admin implements Serializable{
+public class AdminUsers implements Serializable{
     
     private List<Etudiant> etudiants;
     private Etudiant selectedEtudiant;
@@ -28,7 +28,7 @@ public class Admin implements Serializable{
         this.selectedEtudiant = selectedEtudiant;
     }
     
-    public Admin() {
+    public AdminUsers() {
     }
     
     public List<Etudiant> getEtudiants() {

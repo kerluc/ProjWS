@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "res_hotel")
 @Entity
 @NamedQueries({
+    @NamedQuery(name = "ReservationHotel.findById", query = "SELECT e FROM ReservationHotel e WHERE e.id = :id"),
     @NamedQuery(name = "ReservationHotel.findByEtudiant", query = "SELECT r FROM ReservationHotel r WHERE r.etudiant.id = :id")})
 public class ReservationHotel implements Serializable {
     
