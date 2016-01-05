@@ -712,3 +712,20 @@ input[type="submit"].btn.btn-mini {
 .ui-grid-offset {
     margin-left: 30px;
 }
+
+.ui-column-title {
+    font-weight: bold;
+    color: #000;
+}
+
+thead th{
+    background-color: #ffcc66 !important;
+}
+
+.ui-datatable-data {
+    background-color: #fff;
+}
+
+.ui-datatable-odd {
+    background-color: #f4f4f4 !important;
+}

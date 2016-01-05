@@ -16,27 +16,7 @@
                 Rechercher votre restaurant<br/>
                 <small>RESTAURANTS</small>
             </h1>
-            <br/>
-
-            <legend>
-                Mes réservations au <span>restaurant :</span>
-            </legend>
-            <h:panelGrid columns="2">  
-                <p:dataTable value="#{ReservationController.selectedRest}" var="res">
-
-                    <p:column headerText="Nom du restaurant" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.nom}" />
-                    </p:column>
-
-                    <p:column headerText="Date de reservation" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.debut}" />
-                    </p:column>
-
-                </p:dataTable>
-            </h:panelGrid>
-
-
-            <br></br>
+            
             <legend>
                 Adresse
             </legend>
@@ -48,21 +28,14 @@
                     <h:outputLabel value="Ville :" class="ui-grid-col-1" />
                     <p:inputText id="ville" value="#{restaurantController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
                 </div>
-                <br></br><br></br>
-
-                <h:commandButton id="itineraire" value="itineraire" action="#{restaurantController.search()}"
-                                 onclick="return checkPasswords();" type="Submit" />              
-
-                <div id="itineraire"></div>
-
-
+                
                 <legend>
                     Critères de recherche
                 </legend>
                 <div class="ui-grid-row">
                     <p:outputLabel for="budget" value="Prix :" class="ui-grid-col-3"/>
                     <p:selectOneMenu id="budget" value="#{hotelController.budget}" class="ui-grid-col-4">
-                        <f:selectItem itemLabel="illimité" itemValue="0"/>
+                        <f:selectItem itemLabel=" - " itemValue="0"/>
                         <f:selectItem itemLabel="Moins de 50€" itemValue="1"/>
                         <f:selectItem itemLabel="50-70€" itemValue="2"/>
                         <f:selectItem itemLabel="70-90€" itemValue="3"/>
@@ -78,34 +51,30 @@
                         <p:slider for="distance" minValue="1" maxValue="200" />
                     </div>
                 </div>
-                <br></br>
-                <p:commandButton value="itineraire" class="btn btn-primary btn-theme" />
                 
                 <p:commandButton action="#{restaurantController.search()}" value="Chercher" class="btn btn-primary btn-theme btn-mini btn-success" />
                 
             </h:form>
-            <br></br>
-
-
+            <p:spacer height="5"/>
             <p:dataTable value="#{restaurantController.restaurants}" var="r">
-                <p:column headerText="Nom" style="background-color: #ffcc66">
+                <p:column headerText="Nom">
                     <h:outputText value="#{r.nom}" />
                 </p:column>
 
-                <p:column headerText="Adresse" style="background-color: #ffcc66">
+                <p:column headerText="Adresse">
                     <h:outputText value="#{r.adresse}" /><br/>
                     <h:outputText value="#{r.ville}" />
                 </p:column>
 
-                <p:column headerText="Type" style="background-color: #ffcc66">
+                <p:column headerText="Type">
                     <h:outputText value="#{r.type}" />
                 </p:column>
 
-                <p:column headerText="Prix d'un menu" style="background-color: #ffcc66">
+                <p:column headerText="Prix d'un menu">
                     <h:outputText value="#{r.prix}" />&nbsp;€
                 </p:column>
 
-                <p:column headerText="Actions" style="background-color: #ffcc66">
+                <p:column headerText="Actions">
                     <c:choose>
                         <c:when test="#{sessionManager.user ne null}">
                             <p:commandLink value="Réserver" action="#{reservationController.reserver_step1()}">
@@ -122,12 +91,5 @@
         </div>
         <ui:include src="/WEB-INF/footer.xhtml" id="footer"/>
     </h:body>
-    <script src="{{URL::asset('js/jquery-1.10.2.min.js')}}"></script>
-    <script>
-        $('#itineraire').on("click", function () {
-     var map = '<div><img name="mapImage" id="mapImage"  src="http://m1.viamichelin.com/mapsgene/dm/59I257PyFrEsJd_Jeke99B4iGneb_tZY9cq1UEe29l4Szyw_wgx329Doalhw7kc2aRchMk_IWR791OV=U5z8499JlH11-riIQxMO0"/></div>'
-    $(map).insertAfter($('#mapImage'));
-   });
-    </script>
 </html>
 

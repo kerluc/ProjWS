@@ -17,41 +17,6 @@
                 <small>Hotels</small>
             </h1>
 
-            <legend>
-                Mes réservations d' <span>hotels :</span>
-            </legend>
-            <h:panelGrid columns="2">  
-                <p:dataTable value="#{ReservationController.selectedHotel}" var="res">
-
-                    <p:column headerText="Nom de l'hotel" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.nom}" />
-                    </p:column>
-
-                    <p:column headerText="Adresse" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.adresse}" /><br/>
-                        <h:outputText value="#{res.ville}" />
-                    </p:column>
-
-                    <p:column headerText="Téléphone" style="background-color: #ffcc66">
-                        <h:outputText value="#{res.tel}" />
-                    </p:column>
-
-                    <p:column headerText="Date de début" style="background-color: #ffcc66">
-                        <h:outputText value="#{ReservationController.debut}" />
-                    </p:column>
-
-                    <p:column headerText="Date de fin" style="background-color: #ffcc66">
-                        <h:outputText value="#{ReservationController.fin}" />
-                    </p:column>
-
-                    <p:column headerText="Etat de la réservation" style="background-color: #ffcc66">
-                        <h:outputText value="Réservé" />
-                    </p:column>
-
-                </p:dataTable>
-            </h:panelGrid>
-
-            <br/>
             <h:form class="ui-grid">
                 <legend>
                     Adresse
@@ -64,9 +29,6 @@
                     <p:inputText id="ville" value="#{hotelController.ville}" label="Ville" placeholder="ex: Marseille" required="true" class="ui-grid-col-4"/>
                 </div>
 
-                <p:commandButton action="#{restaurantController.search()}" value="J'ai déja fait une réservation" class="btn btn-primary btn-theme btn-mini btn-success" />
-                <br></br><br></br>
-
                 <legend>
                     Critères de recherche
                 </legend>
@@ -74,7 +36,7 @@
                 <div class="ui-grid-row">
                     <p:outputLabel for="budget" value="Prix :" class="ui-grid-col-3"/>
                     <p:selectOneMenu id="budget" value="#{hotelController.budget}" class="ui-grid-col-4">
-                        <f:selectItem itemLabel="illimité" itemValue="0"/>
+                        <f:selectItem itemLabel=" - " itemValue="0"/>
                         <f:selectItem itemLabel="Moins de 50€" itemValue="1"/>
                         <f:selectItem itemLabel="50-70€" itemValue="2"/>
                         <f:selectItem itemLabel="70-90€" itemValue="3"/>
@@ -95,24 +57,24 @@
             <p:spacer height="10"/>
 
             <p:dataTable value="#{hotelController.hotels}" var="hotel">
-                <p:column headerText="Nom" style="background-color: #ffcc66">
+                <p:column headerText="Nom">
                     <h:outputText value="#{hotel.nom}" />
                 </p:column>
 
-                <p:column headerText="Adresse" style="background-color: #ffcc66">
+                <p:column headerText="Adresse">
                     <h:outputText value="#{hotel.adresse}" /><br/>
                     <h:outputText value="#{hotel.ville}" />
                 </p:column>
 
-                <p:column headerText="Téléphone" style="background-color: #ffcc66">
+                <p:column headerText="Téléphone">
                     <h:outputText value="#{hotel.tel}" />
                 </p:column>
 
-                <p:column headerText="Prix d'une nuitée" style="background-color: #ffcc66">
+                <p:column headerText="Prix d'une nuitée">
                     <h:outputText value="#{hotel.prix}" />&nbsp;€
                 </p:column>
 
-                <p:column headerText="Actions" style="background-color: #ffcc66">
+                <p:column headerText="Actions">
                     <c:choose>
                         <c:when test="#{sessionManager.user eq null}">
                             <p:commandLink value="Réserver" disabled="true"></p:commandLink>
